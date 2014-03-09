@@ -9,14 +9,14 @@ import java.sql.*;
  * 
  * @author Robin BILLY - SIO2
  * @package models
- * @version 1.0.0
+ * @version 1.0.1
  *
  */
 public class Connector {
 
 	//-- Attributs
 	private Connection connect;
-	private String logTrace;
+	private String logTrace, dbName;
 	
 	//-- Constructeurs
 	
@@ -26,8 +26,8 @@ public class Connector {
 	 */
 	public Connector() {
 		this.logTrace = "Connector";
+		this.setDbName("gsb_frais");
 		this.loadJDBCDriver();
-		this.getConnection("gsb_frais", StaticDBConf.getUser(), StaticDBConf.getPasswd());
 	}
 	
 	/**
@@ -38,8 +38,27 @@ public class Connector {
 	 */
 	public Connector(String dbName) {
 		this.logTrace = "Connector";
+		this.setDbName(dbName);
 		this.loadJDBCDriver();
-		this.getConnection(dbName, StaticDBConf.getUser(), StaticDBConf.getPasswd());
+	}
+	
+	//-- Accesseurs | Modificateurs
+	
+	/**
+	 * Accesseur dbName
+	 * 
+	 * @return String dbName
+	 */
+	public String getDbName() {
+		return this.dbName;
+	}
+	/**
+	 * Modificateur dbName
+	 * 
+	 * @param String dbName
+	 */
+	public void setDbName(String dbName) {
+		this.dbName = dbName;
 	}
 	
 	//-- Méthodes
@@ -64,23 +83,23 @@ public class Connector {
 	 * @param String user
 	 * @param String passwd
 	 */
-	private void getConnection(String dbName, String user, String passwd) {
+	public void getConnection() {
 		
 		try {
 			if(this.connect == null || this.connect.isClosed()) {
 				try {
-					System.out.println("["+this.logTrace+"] - INFO - Tentative de connexion à : " + dbName);
-					this.connect = DriverManager.getConnection("jdbc:mysql://localhost/"+dbName,user,passwd);
-					System.out.println("["+this.logTrace+"] - INFO - Connexion à " + dbName + " passée avec succès");
+					System.out.println("["+this.logTrace+"] - INFO - Tentative de connexion à : " + this.getDbName());
+					this.connect = DriverManager.getConnection("jdbc:mysql://localhost/"+this.getDbName(),StaticDBConf.getUser(),StaticDBConf.getPasswd());
+					System.out.println("["+this.logTrace+"] - INFO - Connexion à " + this.getDbName() + " effectuée avec succès");
 				}
 				catch(SQLException e) {
 					if(e.getErrorCode() == 1044 || e.getErrorCode() == 1045)
-						System.err.println("["+this.logTrace+"] - ERREUR - Erreur SQL lors de la connexion à " + dbName + " : Identifiants invalides");
+						System.err.println("["+this.logTrace+"] - ERREUR - Erreur SQL lors de la connexion à " + this.getDbName() + " : Identifiants invalides");
 					else if(e.getErrorCode() == 1049) {
-						System.err.println("["+this.logTrace+"] - ERREUR - Erreur SQL lors de la connexion à " + dbName + " : Base de données inexistante");
+						System.err.println("["+this.logTrace+"] - ERREUR - Erreur SQL lors de la connexion à " + this.getDbName() + " : Base de données inexistante");
 					}
 					else
-						System.err.println("["+this.logTrace+"] - ERREUR - Erreur SQL lors de la connexion à " + dbName);
+						System.err.println("["+this.logTrace+"] - ERREUR - Erreur SQL lors de la connexion à " + this.getDbName());
 				}
 			}
 		}
