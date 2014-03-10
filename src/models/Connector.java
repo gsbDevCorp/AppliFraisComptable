@@ -102,6 +102,10 @@ public class Connector {
 						System.err.println("["+this.logTrace+"] - ERREUR - Erreur SQL lors de la connexion à " + this.getDbName());
 				}
 			}
+			else {
+				System.err.println("["+this.logTrace+"] - ERREUR - Connexion à " + this.getDbName() + " déjà active");
+				System.err.println("["+this.logTrace+"] - ERREUR - Tentative de connexion avortée.");
+			}
 		}
 		catch(SQLException e) {
 			System.err.println("["+this.logTrace+"] - ERREUR - Erreur SQL : isClosed()");
@@ -115,10 +119,10 @@ public class Connector {
 		if (this.connect != null) {
 			try {
 				this.connect.close();
-				System.out.println("["+this.logTrace+"] - INFO - Fermeture des flux de connexion à la BDD effectuée");
+				System.out.println("["+this.logTrace+"] - INFO - Fermeture des flux de connexion à " + this.getDbName() + " effectuée");
 			}
 			catch (SQLException e) {
-				System.err.println("["+this.logTrace+"] - ERREUR - Erreur lors de la fermeture des flux de connexion à la BDD");
+				System.err.println("["+this.logTrace+"] - ERREUR - Erreur lors de la fermeture des flux de connexion à " + this.getDbName());
 			}
 		}
 	}
