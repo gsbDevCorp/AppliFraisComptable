@@ -16,7 +16,8 @@ public class Connector {
 
 	//-- Attributs
 	private Connection connect;
-	private String logTrace, dbName;
+	private String dbName;
+	private String logTrace = this.getClass().getSimpleName();
 	
 	//-- Constructeurs
 	
@@ -25,7 +26,6 @@ public class Connector {
 	 * Gestion de la connexion à la BDD
 	 */
 	public Connector() {
-		this.logTrace = "Connector";
 		this.setDbName("gsb_frais");
 		this.loadJDBCDriver();
 	}
@@ -37,7 +37,6 @@ public class Connector {
 	 * @param String dbName
 	 */
 	public Connector(String dbName) {
-		this.logTrace = "Connector";
 		this.setDbName(dbName);
 		this.loadJDBCDriver();
 	}

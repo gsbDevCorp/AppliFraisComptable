@@ -18,16 +18,37 @@ public class VisiteurCtrl {
 	//-- Attributs
 	
 	private String id, nom, prenom, adresse, cp, ville;
+	private String logTrace = this.getClass().getSimpleName();
 	private Date dateEmbauche;
 	
 	//-- Constructeurs
 	
+	/**
+	 * Constructeur VisiteurCtrl sans paramètres
+	 */
 	public VisiteurCtrl() {
 		
 	}
 	
+	/**
+	 * Constructeur VisiteurCtrl avec paramètres 
+	 * 
+	 * @param String id
+	 * @param String nom
+	 * @param String prenom
+	 * @param String adresse
+	 * @param String cp
+	 * @param String ville
+	 * @param Date dateEmbauche
+	 */
 	public VisiteurCtrl(String id, String nom, String prenom, String adresse, String cp, String ville, Date dateEmbauche) {
-		
+		this.setId(id);
+		this.setNom(nom);
+		this.setPrenom(prenom);
+		this.setAdresse(adresse);
+		this.setCp(cp);
+		this.setVille(ville);
+		this.setDateEmbauche(dateEmbauche);
 	}
 
 	//-- Accesseurs | Modificateurs
