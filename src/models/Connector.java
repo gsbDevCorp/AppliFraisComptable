@@ -4,7 +4,7 @@ import java.sql.*;
 
 /**
  * ---------------------------------
- * Gestion de la connexion à la BDD
+ * Gestion de la connexion Ã  la BDD
  * ---------------------------------
  * 
  * @author Robin BILLY - SIO2
@@ -23,7 +23,7 @@ public class Connector {
 	//-- Constructeurs
 	
 	/**
-	 * Constructeur Connector par défaut
+	 * Constructeur Connector par dÃ©faut
 	 * Gestion de la connexion Ã  la BDD
 	 */
 	public Connector() {
@@ -32,8 +32,8 @@ public class Connector {
 	}
 	
 	/**
-	 * Constructeur Connector avec paramètres
-	 * Gestion de la connexion à la BDD
+	 * Constructeur Connector avec paramÃ¨tres
+	 * Gestion de la connexion Ã  la BDD
 	 * 
 	 * @param String dbName
 	 */
@@ -88,23 +88,23 @@ public class Connector {
 		try {
 			if(this.connect == null || this.connect.isClosed()) {
 				try {
-					System.out.println("["+this.logTrace+"] - INFO - Tentative de connexion à : " + this.getDbName());
+					System.out.println("["+this.logTrace+"] - INFO - Tentative de connexion Ã  : " + this.getDbName());
 					this.connect = DriverManager.getConnection("jdbc:mysql://localhost/"+this.getDbName(),StaticDBConf.getUser(),StaticDBConf.getPasswd());
 					System.out.println("["+this.logTrace+"] - INFO - Connexion Ã  " + this.getDbName() + " effectuÃ©e avec succÃ¨s");
 				}
 				catch(SQLException e) {
 					if(e.getErrorCode() == 1044 || e.getErrorCode() == 1045)
-						System.err.println("["+this.logTrace+"] - ERREUR - Erreur SQL lors de la connexion à " + this.getDbName() + " : Identifiants invalides");
+						System.err.println("["+this.logTrace+"] - ERREUR - Erreur SQL lors de la connexion Ã  " + this.getDbName() + " : Identifiants invalides");
 					else if(e.getErrorCode() == 1049) {
-						System.err.println("["+this.logTrace+"] - ERREUR - Erreur SQL lors de la connexion à " + this.getDbName() + " : Base de données inexistante");
+						System.err.println("["+this.logTrace+"] - ERREUR - Erreur SQL lors de la connexion Ã  " + this.getDbName() + " : Base de donnï¿½es inexistante");
 					}
 					else
-						System.err.println("["+this.logTrace+"] - ERREUR - Erreur SQL lors de la connexion à " + this.getDbName());
+						System.err.println("["+this.logTrace+"] - ERREUR - Erreur SQL lors de la connexion Ã  " + this.getDbName());
 				}
 			}
 			else {
-				System.err.println("["+this.logTrace+"] - ERREUR - Connexion à " + this.getDbName() + " déjà  active");
-				System.err.println("["+this.logTrace+"] - ERREUR - Tentative de connexion avortée.");
+				System.err.println("["+this.logTrace+"] - ERREUR - Connexion Ã  " + this.getDbName() + " dï¿½jï¿½ active");
+				System.err.println("["+this.logTrace+"] - ERREUR - Tentative de connexion avortÃ©e.");
 			}
 		}
 		catch(SQLException e) {
@@ -119,10 +119,10 @@ public class Connector {
 		if (this.connect != null) {
 			try {
 				this.connect.close();
-				System.out.println("["+this.logTrace+"] - INFO - Fermeture des flux de connexion à " + this.getDbName() + " effectuée");
+				System.out.println("["+this.logTrace+"] - INFO - Fermeture des flux de connexion Ã  " + this.getDbName() + " effectuÃ©e");
 			}
 			catch (SQLException e) {
-				System.err.println("["+this.logTrace+"] - ERREUR - Erreur lors de la fermeture des flux de connexion à  " + this.getDbName());
+				System.err.println("["+this.logTrace+"] - ERREUR - Erreur lors de la fermeture des flux de connexion Ã  " + this.getDbName());
 			}
 		}
 	}
