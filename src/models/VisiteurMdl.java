@@ -42,7 +42,7 @@ public class VisiteurMdl {
 			}
 			
 			//-- Transactions
-			Statement statement = connexion.createStatement();
+			/*Statement statement = connexion.createStatement();*/
 			
 		} catch(Exception e) {
 			System.err.println("[VisiteurMdl] - ERREUR - Erreur lors du traitement des données");

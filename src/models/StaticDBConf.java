@@ -2,10 +2,11 @@ package models;
 
 /**
  * ---------------------------------
- * Gestion des logs d'accÃ¨s aux BDD
+ * Gestion des logs d'accès aux BDD
  * ---------------------------------
  * 
  * @author Robin BILLY - SIO2
+ * @author Chafik DAGGAG - SIO2
  * @package models
  * @version 1.0.0
  *
