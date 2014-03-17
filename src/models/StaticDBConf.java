@@ -2,7 +2,7 @@ package models;
 
 /**
  * ---------------------------------
- * Gestion des logs d'accès aux BDD
+ * Gestion des logs d'accÃ¨s aux BDD
  * ---------------------------------
  * 
  * @author Robin BILLY - SIO2
