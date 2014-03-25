@@ -14,7 +14,7 @@ package models;
 public class StaticDBConf {
 
 	//-- Attributs
-	private static String user = "root", passwd = "root";
+	private static String user = "root", passwd = "";
 	
 	public static String getUser() {
 		return user;
