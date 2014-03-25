@@ -17,7 +17,7 @@ import java.awt.event.*;
  * @version 1.0.1
  *
  */
-public class Connexion extends JPanel implements ActionListener {
+public class Accueil extends JPanel implements ActionListener {
 	
 	//-- Attributs
 	private JTextField login;
@@ -26,7 +26,7 @@ public class Connexion extends JPanel implements ActionListener {
 	private Fenetre fenetre;
 	
 	//-- Constructeurs
-	public Connexion(Fenetre fenetre) {
+	public Accueil(Fenetre fenetre) {
 		this.fenetre = fenetre;
 	}
 	public JPanel launchPanel() {
@@ -60,11 +60,7 @@ public class Connexion extends JPanel implements ActionListener {
 		/**
 		 * TODO ajout logo gsb au dessus de la connexion
 		 */
-		ligne2.add(new JLabel("Identifiant :"));
-		ligne3.add(login);
-		ligne4.add(new JLabel("Mot de passe :"));
-		ligne5.add(mdp);
-		ligne6.add(butConnexion);
+		ligne2.add(new JLabel("Accueil !"));
 		
 		// Ajout des lignes à la grille
 		grid.add(ligne1);
@@ -96,9 +92,6 @@ public class Connexion extends JPanel implements ActionListener {
 			if(retourModele != 1) {
 				final ImageIcon icon = new ImageIcon("img/logo.jpg");
 				JOptionPane.showMessageDialog(null,"Le couple identifiant/mot de passe est incorrect.","AppliFrais - Comptable",JOptionPane.ERROR_MESSAGE, icon);
-			}
-			else {
-				fenetre.setActivePanel(new Accueil(fenetre).launchPanel());
 			}
 	
 		}

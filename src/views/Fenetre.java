@@ -9,8 +9,8 @@ import javax.swing.*;
  * Gestion de la fenêtre
  * ---------------------------------
  * 
- * @author Chafik DAGGAG - SIO2
- * @package controllers
+ * @author Robin BILLY - SIO2
+ * @package views
  * @version 1.0.0
  *
  */

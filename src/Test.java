@@ -12,6 +12,12 @@ public class Test {
 	public static void main(String[] args) {
 		
 		Fenetre fenetre = new Fenetre();
-		fenetre.setActivePanel(new Connexion().launchPanel());
+		fenetre.setActivePanel(new Connexion(fenetre).launchPanel());
+		
+		/*try{
+			Thread.sleep(3000);
+		}catch(InterruptedException e){
+			System.out.println(e.getMessage());
+		}*/
 	}
 }
