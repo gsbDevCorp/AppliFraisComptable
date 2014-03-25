@@ -33,12 +33,13 @@ public class Connexion extends JPanel implements ActionListener {
 		// Définition du JPanel principal
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new GridBagLayout());
-		mainPanel.setBackground(Color.gray);
+		mainPanel.setBackground(new Color(141,182,205));
 		
 		// Définition de la grille
 		JPanel grid = new JPanel();
+		grid.setBackground(new Color(255,255,255));
 		grid.setBorder(BorderFactory.createLineBorder(Color.black));
-		grid.setLayout(new GridLayout(6,1));
+		grid.setLayout(new GridLayout(5,1));
 		
 		// Définition des lignes
 		JPanel ligne1 = new JPanel();
@@ -46,25 +47,27 @@ public class Connexion extends JPanel implements ActionListener {
 		JPanel ligne3 = new JPanel();
 		JPanel ligne4 = new JPanel();
 		JPanel ligne5 = new JPanel();
-		JPanel ligne6 = new JPanel();
+		ligne1.setBackground(new Color(255,255,255));
+		ligne2.setBackground(new Color(255,255,255));
+		ligne3.setBackground(new Color(255,255,255));
+		ligne4.setBackground(new Color(255,255,255));
+		ligne5.setBackground(new Color(255,255,255));
 		
 		// Instanciation des attributs
 		this.login = new JTextField(30);
 		this.mdp = new JPasswordField(30);
 		this.butConnexion = new JButton("Connexion");
+		this.butConnexion.setBackground(new Color(141,182,205));
 		
 		// Ajout à l'ActionListener
 		this.butConnexion.addActionListener(this);
 		
 		// Ajout des attributs aux lignes
-		/**
-		 * TODO ajout logo gsb au dessus de la connexion
-		 */
-		ligne2.add(new JLabel("Identifiant :"));
-		ligne3.add(login);
-		ligne4.add(new JLabel("Mot de passe :"));
-		ligne5.add(mdp);
-		ligne6.add(butConnexion);
+		ligne1.add(new JLabel("Identifiant :"));
+		ligne2.add(login);
+		ligne3.add(new JLabel("Mot de passe :"));
+		ligne4.add(mdp);
+		ligne5.add(butConnexion);
 		
 		// Ajout des lignes à la grille
 		grid.add(ligne1);
@@ -72,7 +75,6 @@ public class Connexion extends JPanel implements ActionListener {
 		grid.add(ligne3);
 		grid.add(ligne4);
 		grid.add(ligne5);
-		grid.add(ligne6);
 		
 		// Ajout de la grille au panel principal
 		mainPanel.add(grid);

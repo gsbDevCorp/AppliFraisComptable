@@ -33,7 +33,7 @@ public class Accueil extends JPanel implements ActionListener {
 		// Définition du JPanel principal
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new GridBagLayout());
-		mainPanel.setBackground(Color.gray);
+		mainPanel.setBackground(new Color(141,182,205));
 		
 		// Définition de la grille
 		JPanel grid = new JPanel();
