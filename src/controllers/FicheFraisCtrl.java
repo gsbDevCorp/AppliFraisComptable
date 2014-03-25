@@ -25,14 +25,14 @@ public class FicheFraisCtrl {
 		//-- Constructeurs
 		
 		/**
-		 * Constructeur FicheFraisCtrl sans paramètres
+		 * Constructeur FicheFraisCtrl sans paramÃ¨tres
 		 */
 		public FicheFraisCtrl() {
 			
 		}
 		
 		/**
-		 * Constructeur FicheFraisCtrl avec paramètres 
+		 * Constructeur FicheFraisCtrl avec paramÃ¨tres 
 		 * 
 		 * @param String idEtat, mois
 		 * @param Date dateModif
