@@ -94,7 +94,7 @@ public class FicheFraisCtrl {
 		 * 
 		 */
 		public void setNbJustificatifs(int nbJustificatifs) {
-			
+			this.nbJustificatifs = nbJustificatifs;
 		}
 		
 		/**
@@ -106,7 +106,7 @@ public class FicheFraisCtrl {
 		 * 
 		 */
 		public void setMontantValide(double montantValide) {
-			
+			this.montantValide = montantValide;
 		}
 		
 		/**
@@ -130,7 +130,7 @@ public class FicheFraisCtrl {
 		 * 
 		 */
 		public void setDateModif(Date dateModif) {
-			
+			this.dateModif = dateModif;
 		}
 		
 		/**
@@ -154,7 +154,7 @@ public class FicheFraisCtrl {
 		 * 
 		 */
 		public void setIdEtat(String idEtat) {
-			
+			this.idEtat = idEtat;
 		}
 		
 	}
