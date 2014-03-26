@@ -10,7 +10,7 @@ import javax.swing.*;
  * ---------------------------------
  * 
  * @author Robin BILLY - SIO2
- * @package views
+ * Package views
  * @version 1.0.0
  *
  */

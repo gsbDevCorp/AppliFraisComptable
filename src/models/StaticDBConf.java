@@ -7,14 +7,14 @@ package models;
  * 
  * @author Robin BILLY - SIO2
  * @author Chafik DAGGAG - SIO2
- * @package models
+ * Package models
  * @version 1.0.0
  *
  */
 public class StaticDBConf {
 
 	//-- Attributs
-	private static String user = "root", passwd = "";
+	private static String user = "root", passwd = "root";
 	
 	public static String getUser() {
 		return user;

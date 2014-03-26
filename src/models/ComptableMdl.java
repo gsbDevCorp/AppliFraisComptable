@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * ---------------------------------
  * 
  * @author Robin BILLY - SIO2
- * @package controllers
+ * Package controllers
  * @version 1.0.0
  *
  */
@@ -29,8 +29,8 @@ public class ComptableMdl {
 	 * 1 = OK
 	 * <> 1 = ERREUR
 	 * 
-	 * @param String identifiant
-	 * @param String mdp
+	 * @param identifiant String
+	 * @param mdp String
 	 * @return int
 	 */
 	public static int connexionComptable(String identifiant, String mdp) {

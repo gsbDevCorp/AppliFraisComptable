@@ -8,7 +8,7 @@ import java.sql.*;
  * ---------------------------------
  * 
  * @author Robin BILLY - SIO2
- * @package models
+ * Package models
  * @version 1.0.2
  *
  */

@@ -13,7 +13,7 @@ import java.awt.event.*;
  * Gestion de la connexion
  * 
  * @author Robin BILLY - SIO2
- * @package views
+ * Package views
  * @version 1.0.1
  *
  */

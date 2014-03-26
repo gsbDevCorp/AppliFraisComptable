@@ -9,7 +9,7 @@ import java.sql.Date;
  * 
  * @author Robin BILLY - SIO2
  * @author Chafik DAGGAG - SIO2
- * @package controllers
+ * Package controllers
  * @version 1.0.0
  *
  */
@@ -33,6 +33,11 @@ public class FraisHorsForfaitCtrl {
 	
 	/**
 	 * Constructeur de la classe FicheHorsForfait avec paramètres
+	 * 
+	 * @param id int
+	 * @param libelle String
+	 * @param date Date
+	 * @param montant double
 	 */
 	public FraisHorsForfaitCtrl(int id, String libelle, Date date, double montant) {
 		this.setId(id);
@@ -78,7 +83,7 @@ public class FraisHorsForfaitCtrl {
 	/**
 	 * Modification de l'id de la fiche hors forfait
 	 * 
-	 * @param int
+	 * @param id int
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -86,7 +91,7 @@ public class FraisHorsForfaitCtrl {
 	/**
 	 * Modification du libelle de la fiche hors forfait
 	 * 
-	 * @param String
+	 * @param libelle String
 	 */
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
@@ -94,7 +99,7 @@ public class FraisHorsForfaitCtrl {
 	/**
 	 * Modification de la date de la fiche hors forfait
 	 * 
-	 * @param Date
+	 * @param date Date
 	 */
 	public void setDate(Date date) {
 		this.date = date;
@@ -102,7 +107,7 @@ public class FraisHorsForfaitCtrl {
 	/**
 	 * Modification du montant de la fiche hors forfait
 	 * 
-	 * @param double
+	 * @param montant double
 	 */
 	public void setMontant(double montant) {
 		this.montant = montant;

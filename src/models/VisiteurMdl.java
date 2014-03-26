@@ -14,7 +14,7 @@ import controllers.VisiteurCtrl;
  * 
  * @author Robin BILLY - SIO2
  * @author Chafik DAGGAG - SIO2
- * @package controllers
+ * Package controllers
  * @version 1.0.0
  *
  */

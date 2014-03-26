@@ -7,22 +7,23 @@ import models.ComptableMdl;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Vue de Connexion
  * Gestion de la connexion
  * 
  * @author Robin BILLY - SIO2
- * @package views
+ * Package views
  * @version 1.0.1
  *
  */
 public class Accueil extends JPanel implements ActionListener {
 	
 	//-- Attributs
-	private JTextField login;
-	private JPasswordField mdp;
-	private JButton butConnexion;
+	private JButton butGererFrais, butInfosPerso;
 	private Fenetre fenetre;
 	
 	//-- Constructeurs
@@ -38,37 +39,35 @@ public class Accueil extends JPanel implements ActionListener {
 		// Définition de la grille
 		JPanel grid = new JPanel();
 		grid.setBorder(BorderFactory.createLineBorder(Color.black));
-		grid.setLayout(new GridLayout(6,1));
+		grid.setLayout(new GridLayout(4,1));
 		
 		// Définition des lignes
 		JPanel ligne1 = new JPanel();
 		JPanel ligne2 = new JPanel();
 		JPanel ligne3 = new JPanel();
 		JPanel ligne4 = new JPanel();
-		JPanel ligne5 = new JPanel();
-		JPanel ligne6 = new JPanel();
 		
 		// Instanciation des attributs
-		this.login = new JTextField(30);
-		this.mdp = new JPasswordField(30);
-		this.butConnexion = new JButton("Connexion");
+		this.butGererFrais = new JButton("Gérer les fiches de frais");
+		this.butGererFrais.setBackground(new Color(141,182,205));
+		this.butInfosPerso = new JButton("Modifier mes informations personnelles");
+		this.butInfosPerso.setBackground(new Color(141,182,205));
 		
 		// Ajout à l'ActionListener
-		this.butConnexion.addActionListener(this);
+		this.butGererFrais.addActionListener(this);
+		this.butInfosPerso.addActionListener(this);
 		
 		// Ajout des attributs aux lignes
-		/**
-		 * TODO ajout logo gsb au dessus de la connexion
-		 */
-		ligne2.add(new JLabel("Accueil !"));
+		ligne1.add(new JLabel("Levis Smith"));
+		ligne2.add(new JLabel(new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE).format(new Date())));
+		ligne3.add(this.butGererFrais);
+		ligne4.add(this.butInfosPerso);
 		
 		// Ajout des lignes à la grille
 		grid.add(ligne1);
 		grid.add(ligne2);
 		grid.add(ligne3);
 		grid.add(ligne4);
-		grid.add(ligne5);
-		grid.add(ligne6);
 		
 		// Ajout de la grille au panel principal
 		mainPanel.add(grid);
@@ -76,35 +75,13 @@ public class Accueil extends JPanel implements ActionListener {
 		return mainPanel;
 	}
 	
-	/**
-	 * Gestion de la connexion des comptables
-	 * 
-	 */
-	private void connexionComptable() {
-		/*
-		 * Passage du mot de passe en clair pour traitements modèle
-		 */
-		char[] charMdp = this.mdp.getPassword();
-		String stringMdp = new String(charMdp);
-		//-- Traitement des informations avec le modèle
-		try {
-			int retourModele = ComptableMdl.connexionComptable(this.login.getText(), stringMdp);
-			if(retourModele != 1) {
-				final ImageIcon icon = new ImageIcon("img/logo.jpg");
-				JOptionPane.showMessageDialog(null,"Le couple identifiant/mot de passe est incorrect.","AppliFrais - Comptable",JOptionPane.ERROR_MESSAGE, icon);
-			}
-	
-		}
-		catch(Exception e) {
-			System.out.println("[Connexion] - ERREUR - Erreur lors du traitement des données : " +e);
-		}
-		
-	}
-	
 	public void actionPerformed(ActionEvent event) {
 		switch (event.getActionCommand()) {
-		case "Connexion":
-			this.connexionComptable();
+		case "Gérer les fiches de frais":
+			
+			break;
+		case "Modifier mes informations personnelles":
+			this.fenetre.setActivePanel(new ModifInfosPerso(this.fenetre).launchPanel());
 			break;
 		default:
 			break;

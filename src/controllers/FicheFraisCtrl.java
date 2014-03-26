@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * ---------------------------------
  * 
  * @author Chafik DAGGAG - SIO2
- * @package controllers
+ * Package controllers
  * @version 1.0.0
  *
  */
@@ -34,11 +34,11 @@ public class FicheFraisCtrl {
 		/**
 		 * Constructeur FicheFraisCtrl avec paramètres 
 		 * 
-		 * @param String idEtat, mois
-		 * @param Date dateModif
-		 * @param int nbJustificatifs
-		 * @param double montantValide
-		 * @param 
+		 * @param idEtat String
+		 * @param mois String
+		 * @param dateModif Date
+		 * @param nbJustificatifs int
+		 * @param montantValide double
 		 */
 		public FicheFraisCtrl(String idEtat, String mois, Date dateModif, int nbJustificatifs, double montantValide) {
 			this.setIdEtat(idEtat);
@@ -90,7 +90,7 @@ public class FicheFraisCtrl {
 		 * 
 		 * Modification du nombre de justificatifs d'une fiche de frais
 		 * 
-		 * @param int nbJustificatifs
+		 * @param nbJustificatifs int
 		 * 
 		 */
 		public void setNbJustificatifs(int nbJustificatifs) {
@@ -102,7 +102,7 @@ public class FicheFraisCtrl {
 		 * 
 		 * Modification du montant final d'une fiche de frais
 		 * 
-		 * @param double montantValide
+		 * @param montantValide double
 		 * 
 		 */
 		public void setMontantValide(double montantValide) {
@@ -126,7 +126,7 @@ public class FicheFraisCtrl {
 		 * 
 		 * Modification de la date de modification de la fiche de frais
 		 * 
-		 * @param Date dateModif
+		 * @param dateModif Date
 		 * 
 		 */
 		public void setDateModif(Date dateModif) {
@@ -150,7 +150,7 @@ public class FicheFraisCtrl {
 		 * 
 		 * Modification de l'identifiant de l'état de la fiche de frais
 		 * 
-		 * @param String idEtat
+		 * @param idEtat String
 		 * 
 		 */
 		public void setIdEtat(String idEtat) {

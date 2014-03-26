@@ -15,7 +15,7 @@ import controllers.VisiteurCtrl;
  * 
  * @author Robin BILLY - SIO2
  * @author Chafik DAGGAG - SIO2
- * @package models
+ * Package models
  * @version 1.0.0
  *
  */
@@ -30,8 +30,8 @@ public class FraisForfaitMdl {
 	/**
 	 * Récupération de tous les frais forfaits d'un mois donné pour un visiteur donné
 	 * 
-	 * @param String idVisiteur
-	 * @param String mois
+	 * @param idVisiteur String
+	 * @param mois String
 	 * @return ArrayList<FraisForfaitCtrl>
 	 */
 	public static ArrayList<FraisForfaitCtrl> getFraisForfait(String idVisiteur, String mois) {

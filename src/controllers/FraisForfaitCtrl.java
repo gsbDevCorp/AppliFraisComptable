@@ -9,7 +9,7 @@ import java.sql.*;
  * 
  * @author Robin BILLY - SIO2
  * @author Chafik DAGGAG - SIO2
- * @package controllers
+ * Package controllers
  * @version 1.0.0
  *
  */
@@ -31,8 +31,8 @@ public class FraisForfaitCtrl {
 	/**
 	 * Constructeur FraisForfaitCtrl avec paramètres
 	 * 
-	 * @param String idFraisForfait
-	 * @param int quantite
+	 * @param idFraisForfait String
+	 * @param quantite String
 	 */
 	public FraisForfaitCtrl(String idFraisForfait, int quantite) {
 		this.setIdFraisForfait(idFraisForfait);
@@ -60,7 +60,7 @@ public class FraisForfaitCtrl {
 	/**
 	 * Modifie l'identifiant du frais forfait
 	 * 
-	 * @param String idFraisForfait
+	 * @param idFraisForfait String
 	 */
 	public void setIdFraisForfait(String idFraisForfait) {
 		this.idFraisForfait = idFraisForfait;
@@ -68,7 +68,7 @@ public class FraisForfaitCtrl {
 	/**
 	 * Modifie la quantité du frais forfait
 	 * 
-	 * @param int quantite
+	 * @param quantite int
 	 */
 	public void setQuantite(int quantite) {
 		this.quantite = quantite;

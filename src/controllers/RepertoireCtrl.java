@@ -8,7 +8,7 @@ import java.sql.*;
  * ---------------------------------
  * 
  * @author Chafik DAGGAG - SIO2
- * @package controllers
+ * Package controllers
  * @version 1.0.0
  *
  */

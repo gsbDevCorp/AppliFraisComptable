@@ -17,7 +17,7 @@ import controllers.FraisHorsForfaitCtrl;
  * 
  * @author Robin BILLY - SIO2
  * @author Chafik DAGGAG - SIO2
- * @package models
+ * Package models
  * @version 1.0.0
  *
  */
@@ -32,8 +32,8 @@ public class FraisHorsForfaitMdl {
 	/**
 	 * Récupération de tous les frais hors forfaits d'un mois donné pour un visiteur donné
 	 * 
-	 * @param String idVisiteur
-	 * @param String mois
+	 * @param idVisiteur String
+	 * @param mois String
 	 * @return ArrayList<FraisHorsForfaitCtrl>
 	 */
 	public static ArrayList<FraisHorsForfaitCtrl> getFraisHorsForfait(String idVisiteur, String mois) {
@@ -82,8 +82,8 @@ public class FraisHorsForfaitMdl {
 	/**
 	 * Récupération du nombre de frais hors forfait enregistrés pour un visiteur donné et un mois donné
 	 * 
-	 * @param String idVisiteur
-	 * @param String mois
+	 * @param idVisiteur String
+	 * @param mois String
 	 * @return int
 	 */
 	public static int getNbFraisHorsForfait(String idVisiteur, String mois) {
