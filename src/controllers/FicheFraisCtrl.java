@@ -20,6 +20,8 @@ public class FicheFraisCtrl {
 		private Date dateModif;
 		private int nbJustificatifs;
 		private double montantValide;
+		private ArrayList<FraisForfaitCtrl> listeFraisForfait;
+		private ArrayList<FraisHorsForfaitCtrl> listeFraisHorsForfait;
 		
 		//-- Constructeurs
 		
@@ -49,45 +51,34 @@ public class FicheFraisCtrl {
 		//-- Accesseurs | Modificateurs
 		
 		/**
-		 * Accesseur Mois
-		 * 
-		 * retourne le mois de la fiche de frais
+		 * Retourne le mois
 		 * 
 		 * @return String
-		 * 
 		 */
 		public String getMois(){
 			return this.mois;
 		}
 		
 		/**
-		 * Accesseur NbJustificatif
-		 * 
-		 * retourne le nombre de justificatif de la fiche de frais
+		 * Retourne le nbJustificatif
 		 * 
 		 * @return int
-		 * 
 		 */
 		public int getNbJustificatif() {
 			return this.nbJustificatifs;
 		}
 		
 		/**
-		 * Accesseur MontantValide
-		 * 
-		 * retourne le montant final de la fiche de frais
+		 * Retourne le montantValide
 		 * 
 		 * @return double
-		 * 
 		 */
 		public double getMontantValide() {
 			return montantValide;
 		}
 		
 		/**
-		 * Modificateur NbJustificatifs avec paramètres
-		 * 
-		 * Modification du nombre de justificatifs d'une fiche de frais
+		 * Modification du nombre de justificatifs
 		 * 
 		 * @param nbJustificatifs int
 		 * 
@@ -97,63 +88,58 @@ public class FicheFraisCtrl {
 		}
 		
 		/**
-		 * Modificateur MontantValide avec paramètres
-		 * 
-		 * Modification du montant final d'une fiche de frais
+		 * Modification du MontantValide
 		 * 
 		 * @param montantValide double
-		 * 
 		 */
 		public void setMontantValide(double montantValide) {
 			this.montantValide = montantValide;
 		}
 		
 		/**
-		 * Accesseur DateModif
-		 * 
-		 * Retourne la date de modification d'une fiche de frais
+		 * Retourne la dateModif
 		 * 
 		 * @return Date
-		 * 
 		 */
 		public Date getDateModif() {
 			return dateModif;
 		}
 		
 		/**
-		 * Modificateur DateModif avec paramètres
-		 * 
-		 * Modification de la date de modification de la fiche de frais
+		 * Modification de dateModif
 		 * 
 		 * @param dateModif Date
-		 * 
 		 */
 		public void setDateModif(Date dateModif) {
 			this.dateModif = dateModif;
 		}
 		
 		/**
-		 * Accesseur IdEtat
-		 * 
-		 * Retourne l'identifiant de l'état de la fiche de frais
+		 * Retourne idEtat
 		 * 
 		 * @return String
-		 * 
 		 */
 		public String getIdEtat() {
 			return this.idEtat;
 		}
 		
 		/**
-		 * Modificateur IdEtat avec paramètres
-		 * 
-		 * Modification de l'identifiant de l'état de la fiche de frais
+		 * Modification de idEtat
 		 * 
 		 * @param idEtat String
-		 * 
 		 */
 		public void setIdEtat(String idEtat) {
 			this.idEtat = idEtat;
 		}
+		
+		/**
+		 * Modification de la liste de frais forfait
+		 * 
+		 * @param listeFraisForfait ArrayList<FraisForfaitCtrl>
+		 */
+		public void setListeFraisForfait(ArrayList<FraisForfaitCtrl> listeFraisForfait) {
+			this.listeFraisForfait = listeFraisForfait;
+		}
+		//-- Méthodes
 		
 	}

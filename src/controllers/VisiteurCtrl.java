@@ -29,7 +29,18 @@ public class VisiteurCtrl {
 	}
 	
 	/**
-	 * Constructeur VisiteurCtrl avec paramètres 
+	 * Constructeur VisiteurCtrl simplifié
+	 * 
+	 * @param id String
+	 * @param nom String
+	 * @param prenom String
+	 */
+	public VisiteurCtrl(String id, String nom, String prenom) {
+		
+	}
+	
+	/**
+	 * Constructeur VisiteurCtrl complet
 	 * 
 	 * @param id String
 	 * @param nom String
