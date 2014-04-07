@@ -2,6 +2,9 @@ package models;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.*;
+
+import controllers.ComptableCtrl;
 
 /**
  * ---------------------------------
@@ -11,7 +14,6 @@ import java.util.ArrayList;
  * ---------------------------------
  * 
  * @author Robin BILLY - SIO2
- * Package controllers
  * @version 1.0.0
  *
  */
@@ -19,25 +21,26 @@ public class ComptableMdl {
 
 	//-- Attributs
 	private static Connector connexion = new Connector();
-	private static String logTrace = "ComptableMdl";
+	private static Logger logTrace = Logger.getLogger(ComptableMdl.class.getName());
 
 	//-- Méthodes
 	
 	/**
 	 * Vérification de la connexion des comptables
 	 * Retours :
-	 * 1 = OK
-	 * <> 1 = ERREUR
+	 * ComptableCtrl = OK
+	 * null = ERREUR
 	 * 
 	 * @param identifiant String
 	 * @param mdp String
-	 * @return int
+	 * @return ComptableCtrl
 	 */
-	public static int connexionComptable(String identifiant, String mdp) {
-		System.out.println("["+logTrace+"] - INFO - connexionComptable()");
-		System.out.println("["+logTrace+"] - INFO - Vérification des identifiants de connexion du comptable " + identifiant);
+	public static ComptableCtrl connexionComptable(String identifiant, String mdp) {
+		logTrace.setLevel(Level.INFO);
+		logTrace.info("connexionComptable()");
+		logTrace.info("Vérification des identifiants de connexion du comptable : " + identifiant);
 		
-		int retourComptable = 0;
+		ComptableCtrl retourComptable = null;
 
 		try {
 			//-- Récupération de la connexion
@@ -45,29 +48,117 @@ public class ComptableMdl {
 			try {
 				connect = connexion.getConnection();
 			} catch(Exception e) {
-				System.err.println("["+logTrace+"] - ERREUR - Erreur lors de la connexion à la BDD");
+				logTrace.severe("Erreur lors de la connexion à la BDD");
 			}
 			
 			//-- Transactions
 
-			PreparedStatement statement = connect.prepareStatement("SELECT COUNT(*) AS nbComptables FROM Comptable WHERE login = ? AND mdp = ?");
+			PreparedStatement statement = connect.prepareStatement("SELECT * FROM Comptable WHERE login = ? AND mdp = ?");
 			statement.setString(1, identifiant);
 			statement.setString(2, mdp);
 			ResultSet result = statement.executeQuery();
 			
 			while(result.next())
-				retourComptable = result.getInt("nbComptables");
+				retourComptable = new ComptableCtrl(result.getInt("id"),result.getString("nom"),result.getString("prenom"),result.getString("adresse"),result.getString("cp"),result.getString("ville"),result.getDate("dateEmbauche"));
 			
-			System.out.println("["+logTrace+"] - INFO - Nombre de comptables récupérés : " + retourComptable);
-			System.out.println("["+logTrace+"] - INFO - Retour du nombre de visiteurs médicaux");
+			logTrace.info("Identifiant de comptable récupéré : " + retourComptable.getId());
+			logTrace.info("Retour du comptable");
 		}
 		catch(SQLException e) {
-			System.err.println("["+logTrace+"] - ERREUR - Erreur SQL : " + e.getMessage());
+			logTrace.severe("Erreur lors de la connexion à la BDD");
 		} catch(Exception e) {
-			System.err.println("["+logTrace+"] - ERREUR - Erreur lors du traitement des données : " + e);
+			logTrace.severe("Erreur lors du traitement des données : " + e);
 		} finally {
 			connexion.closeConnection();
 		}
 		return retourComptable;
+	}
+	
+	/**
+	 * Comparaison du mot de passe utilisateur passé en paramètre à celui présent
+	 * en base de données.
+	 * Utile pour la modification du mot de passe.
+	 * 
+	 * @param id int
+	 * @param password String
+	 * @return boolean
+	 */
+	public static boolean checkPassword(int id, String password) {
+		logTrace.setLevel(Level.INFO);
+		logTrace.info("checkPassword()");
+		logTrace.info("Vérification du mot de passe comptable : " + id);
+		
+		boolean check = false;
+		
+		try {
+			//-- Récupération de la connexion
+			Connection connect = null;
+			try {
+				connect = connexion.getConnection();
+			} catch(Exception e) {
+				logTrace.severe("Erreur lors de la connexion à la BDD");
+			}
+			
+			//-- Transactions
+
+			PreparedStatement statement = connect.prepareStatement("SELECT COUNT(*) AS nbOccurences FROM Comptable WHERE id = ? AND mdp = ?");
+			statement.setInt(1, id);
+			statement.setString(2, password);
+			ResultSet result = statement.executeQuery();
+
+			while(result.next()) {
+				if(result.getInt("nbOccurences") == 1)
+					check = true;
+			}
+			
+			logTrace.info("Validité du mot de passe : " + check);
+			logTrace.info("Retour du résultat");
+		}
+		catch(SQLException e) {
+			logTrace.severe("Erreur SQL : " + e.getMessage());
+		} catch(Exception e) {
+			logTrace.severe("Erreur lors du traitement des données : " + e);
+		} finally {
+			connexion.closeConnection();
+		}
+		return check;
+	}
+	
+	/**
+	 * Modification du mot de passe en base de données
+	 * 
+	 * @param id int
+	 * @param password String
+	 */
+	public static void setPassword(int id, String password) {
+		logTrace.setLevel(Level.INFO);
+		logTrace.info("setPassword()");
+		logTrace.info("Modification du mot de passe comptable : " + id);
+		
+		try {
+			//-- Récupération de la connexion
+			Connection connect = null;
+			try {
+				connect = connexion.getConnection();
+			} catch(Exception e) {
+				logTrace.severe("Erreur lors de la connexion à la BDD");
+			}
+			
+			//-- Transactions
+
+			PreparedStatement statement = connect.prepareStatement("UPDATE Comptable SET mdp = ? WHERE id = ?");
+			statement.setString(1, password);
+			statement.setInt(2, id);
+			statement.executeUpdate();
+			
+			logTrace.info("Mot de passe modifié pour comptable : " + id);
+		}
+		catch(SQLException e) {
+			logTrace.severe("Erreur SQL : " + e.getMessage());
+		} catch(Exception e) {
+			logTrace.severe("Erreur lors du traitement des données : " + e);
+		} finally {
+			connexion.closeConnection();
+		}
 	}
 }

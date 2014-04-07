@@ -3,6 +3,8 @@ package views;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import overrides.JPassword;
+import controllers.ComptableCtrl;
 import models.ComptableMdl;
 
 import java.awt.*;
@@ -13,16 +15,16 @@ import java.awt.event.*;
  * Gestion de la connexion
  * 
  * @author Robin BILLY - SIO2
- * Package views
  * @version 1.0.1
  *
  */
 public class Connexion extends JPanel implements ActionListener {
 	
 	//-- Attributs
-	private JTextField login;
-	private JPasswordField mdp;
-	private JButton butConnexion;
+	private JTextField loginText;
+	private JPassword passwordText;
+	private JButton connexionBut;
+	private JLabel loginLabel, passwordLabel;
 	private Fenetre fenetre;
 	
 	//-- Constructeurs
@@ -30,55 +32,79 @@ public class Connexion extends JPanel implements ActionListener {
 		this.fenetre = fenetre;
 	}
 	public JPanel launchPanel() {
-		// Définition du JPanel principal
+		
+		//-- Définition du JPanel
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new GridBagLayout());
 		mainPanel.setBackground(new Color(141,182,205));
 		
-		// Définition de la grille
-		JPanel grid = new JPanel();
-		grid.setBackground(new Color(255,255,255));
-		grid.setBorder(BorderFactory.createLineBorder(Color.black));
-		grid.setLayout(new GridLayout(5,1));
+		//-- Instanciation des attributs
+		this.loginLabel = new JLabel("Identifiant :");
+		this.loginLabel.setForeground(new Color(255,255,255));
+		this.loginLabel.setFont(new Font("Arial", Font.BOLD, 15));
+		this.loginText = new JTextField(20);
 		
-		// Définition des lignes
-		JPanel ligne1 = new JPanel();
-		JPanel ligne2 = new JPanel();
-		JPanel ligne3 = new JPanel();
-		JPanel ligne4 = new JPanel();
-		JPanel ligne5 = new JPanel();
-		ligne1.setBackground(new Color(255,255,255));
-		ligne2.setBackground(new Color(255,255,255));
-		ligne3.setBackground(new Color(255,255,255));
-		ligne4.setBackground(new Color(255,255,255));
-		ligne5.setBackground(new Color(255,255,255));
+		this.passwordLabel = new JLabel("Mot de passe :");
+		this.passwordLabel.setForeground(new Color(255,255,255));
+		this.passwordLabel.setFont(new Font("Arial", Font.BOLD, 15));
+		this.passwordText = new JPassword(20);
 		
-		// Instanciation des attributs
-		this.login = new JTextField(30);
-		this.mdp = new JPasswordField(30);
-		this.butConnexion = new JButton("Connexion");
-		this.butConnexion.setBackground(new Color(141,182,205));
+		this.connexionBut = new JButton("Connexion");
+		this.connexionBut.setBackground(new Color(221,72,20));
+		this.connexionBut.setFont(new Font("Arial", Font.BOLD, 15));
+		this.connexionBut.setForeground(new Color(255,255,255));
 		
-		// Ajout à l'ActionListener
-		this.butConnexion.addActionListener(this);
+		//-- Ajout à l'ActionListener
+		this.connexionBut.addActionListener(this);
 		
-		// Ajout des attributs aux lignes
-		ligne1.add(new JLabel("Identifiant :"));
-		ligne2.add(login);
-		ligne3.add(new JLabel("Mot de passe :"));
-		ligne4.add(mdp);
-		ligne5.add(butConnexion);
+		//-- Mise en forme
+		GridBagConstraints gbc = new GridBagConstraints();
 		
-		// Ajout des lignes à la grille
-		grid.add(ligne1);
-		grid.add(ligne2);
-		grid.add(ligne3);
-		grid.add(ligne4);
-		grid.add(ligne5);
+		// Identifiant (label)
+		gbc.gridx = gbc.gridy = 0;
+		gbc.gridheight = 1;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.anchor = GridBagConstraints.BASELINE_LEADING;
+		gbc.insets = new Insets(0, 10, 0, 0);
+		mainPanel.add(this.loginLabel, gbc);
 		
-		// Ajout de la grille au panel principal
-		mainPanel.add(grid);
+		// Identifiant (text)
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		gbc.gridheight = 1;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.anchor = GridBagConstraints.BASELINE_LEADING;
+		gbc.insets = new Insets(0, 10, 0, 0);
+		mainPanel.add(this.loginText, gbc);
 		
+		// Mot de passe (label)
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		gbc.gridheight = 1;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.anchor = GridBagConstraints.BASELINE_LEADING;
+		gbc.insets = new Insets(5, 10, 0, 0);
+		mainPanel.add(this.passwordLabel, gbc);
+		
+		// Mot de passe (text)
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		gbc.gridheight =  1;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.anchor = GridBagConstraints.BASELINE_LEADING;
+		gbc.insets = new Insets(0, 10, 0, 0);
+		mainPanel.add(this.passwordText, gbc);
+		
+		// Connexion
+		gbc.gridx = 0;
+		gbc.gridy = 4;
+		gbc.gridheight = 1;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.anchor = GridBagConstraints.BASELINE;
+		gbc.insets = new Insets(10, 10, 0, 0);
+		mainPanel.add(this.connexionBut, gbc);
+		
+		//-- Retour du panel
 		return mainPanel;
 	}
 	
@@ -90,24 +116,20 @@ public class Connexion extends JPanel implements ActionListener {
 		/*
 		 * Passage du mot de passe en clair pour traitements modèle
 		 */
-		char[] charMdp = this.mdp.getPassword();
-		String stringMdp = new String(charMdp);
+		String stringMdp = this.passwordText.transformString();
 		//-- Traitement des informations avec le modèle
 		try {
-			int retourModele = ComptableMdl.connexionComptable(this.login.getText(), stringMdp);
-			if(retourModele != 1) {
-				final ImageIcon icon = new ImageIcon("img/logo.jpg");
+			ComptableCtrl comptable = ComptableMdl.connexionComptable(this.loginText.getText(), stringMdp);
+			if(comptable == null) {
+				final ImageIcon icon = new ImageIcon("img/gsb.png");
 				JOptionPane.showMessageDialog(null,"Le couple identifiant/mot de passe est incorrect.","AppliFrais - Comptable",JOptionPane.ERROR_MESSAGE, icon);
 			}
-			else {
-				fenetre.setActivePanel(new Accueil(fenetre).launchPanel());
-			}
-	
+			else
+				fenetre.setActivePanel(new Accueil(fenetre,comptable).launchPanel());
 		}
 		catch(Exception e) {
-			System.out.println("[Connexion] - ERREUR - Erreur lors du traitement des données : " +e);
+			System.out.println("[Connexion] - ERREUR - Erreur lors du traitement des données : " + e);
 		}
-		
 	}
 	
 	public void actionPerformed(ActionEvent event) {

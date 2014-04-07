@@ -10,7 +10,6 @@ import javax.swing.*;
  * ---------------------------------
  * 
  * @author Robin BILLY - SIO2
- * Package views
  * @version 1.0.0
  *
  */
@@ -19,7 +18,7 @@ public class Fenetre extends JFrame {
 	public Fenetre() {
 		//-- Définition de la fenêtre de base
 		this.setTitle("AppliFrais - Comptable");
-		this.setIconImage(new ImageIcon("img/logo.png").getImage());
+		this.setIconImage(new ImageIcon("img/gsb.png").getImage());
 		this.setExtendedState(this.MAXIMIZED_BOTH);
 		this.setMinimumSize(new Dimension(500, 250));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

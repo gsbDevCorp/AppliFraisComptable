@@ -12,8 +12,8 @@ public class Test {
 	public static void main(String[] args) {
 		
 		Fenetre fenetre = new Fenetre();
-		//fenetre.setActivePanel(new Connexion(fenetre).launchPanel());
-		fenetre.setActivePanel(new Accueil(fenetre).launchPanel());
+		fenetre.setActivePanel(new Connexion(fenetre).launchPanel());
+		
 		/*try{
 			Thread.sleep(3000);
 		}catch(InterruptedException e){

@@ -8,8 +8,7 @@ import java.util.ArrayList;
  * Gestion des fiches de frais
  * ---------------------------------
  * 
- * @author Chafik DAGGAG - SIO2
- * Package controllers
+ * @author Robin BILLY - SIO2
  * @version 1.0.0
  *
  */

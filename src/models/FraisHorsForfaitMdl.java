@@ -1,10 +1,8 @@
 package models;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.*;
 
 import controllers.FraisHorsForfaitCtrl;
 
@@ -16,8 +14,6 @@ import controllers.FraisHorsForfaitCtrl;
  * ---------------------------------
  * 
  * @author Robin BILLY - SIO2
- * @author Chafik DAGGAG - SIO2
- * Package models
  * @version 1.0.0
  *
  */
@@ -25,7 +21,7 @@ public class FraisHorsForfaitMdl {
 
 	//-- Attributs
 	private static Connector connexion = new Connector();
-	private static String logTrace = "FraisHorsForfaitMdl";
+	private static Logger logTrace = Logger.getLogger(FraisHorsForfaitMdl.class.getName());
 	
 	//-- Méthodes
 	
@@ -37,8 +33,9 @@ public class FraisHorsForfaitMdl {
 	 * @return ArrayList<FraisHorsForfaitCtrl>
 	 */
 	public static ArrayList<FraisHorsForfaitCtrl> getFraisHorsForfait(String idVisiteur, String mois) {
-		System.out.println("["+logTrace+"] - INFO - getFraisHorsForfait(String visiteur, String mois)");
-		System.out.println("["+logTrace+"] - INFO - Récupération de tous les frais hors forfait");
+		logTrace.setLevel(Level.INFO);
+		logTrace.info("getFraisHorsForfait(String visiteur, String mois)");
+		logTrace.info("Récupération de tous les frais hors forfait");
 		
 		ArrayList<FraisHorsForfaitCtrl> listeRetour = new ArrayList<FraisHorsForfaitCtrl>();
 		
@@ -48,7 +45,7 @@ public class FraisHorsForfaitMdl {
 			try {
 				connect = connexion.getConnection();
 			} catch(Exception e) {
-				System.err.println("["+logTrace+"] - ERREUR - Erreur lors de la connexion à la BDD");
+				logTrace.severe("Erreur lors de la connexion à la BDD");
 			}
 			
 			//-- Transactions
@@ -58,21 +55,21 @@ public class FraisHorsForfaitMdl {
 			statement.setString(2, mois);
 			ResultSet result = statement.executeQuery();
 			
-			System.out.println("["+logTrace+"] - INFO - Récupération de tous les frais hors forfait effectuée avec succès");
-			System.out.println("["+logTrace+"] - INFO - Ajout des frais hors forfaits à la liste");
+			logTrace.info("Récupération de tous les frais hors forfait effectuée avec succès");
+			logTrace.info("Ajout des frais hors forfaits à la liste");
 			
 			while(result.next()) {
 				FraisHorsForfaitCtrl fraisForfait = new FraisHorsForfaitCtrl(result.getInt("id"), result.getString("libelle"), result.getDate("date"), result.getDouble("montant"));
 				listeRetour.add(fraisForfait);
 			}
 			
-			System.out.println("["+logTrace+"] - INFO - Ajout des frais hors forfait à la liste effecuté avec succès");
-			System.out.println("["+logTrace+"] - INFO - Retour de la liste de frais hors forfait");
+			logTrace.info("Ajout des frais hors forfait à la liste effecuté avec succès");
+			logTrace.info("Retour de la liste de frais hors forfait");
 			
 		} catch(SQLException e) {
-			System.err.println("["+logTrace+"] - ERREUR - Erreur SQL : " + e.getMessage());
+			logTrace.severe("Erreur SQL : " + e.getMessage());
 		} catch(Exception e) {
-			System.err.println("["+logTrace+"] - ERREUR - Erreur lors du traitement des données : " + e);
+			logTrace.severe("Erreur lors du traitement des données : " + e);
 		} finally {
 			connexion.closeConnection();
 		}
@@ -87,8 +84,9 @@ public class FraisHorsForfaitMdl {
 	 * @return int
 	 */
 	public static int getNbFraisHorsForfait(String idVisiteur, String mois) {
-		System.out.println("["+logTrace+"] - INFO - getNbFraisHorsForfait(String visiteur, String mois)");
-		System.out.println("["+logTrace+"] - INFO - Récupération du nombre de frais hors forfait pour " + idVisiteur + " - " + mois);
+		logTrace.setLevel(Level.INFO);
+		logTrace.info("getNbFraisHorsForfait(String visiteur, String mois)");
+		logTrace.info("Récupération du nombre de frais hors forfait pour " + idVisiteur + " - " + mois);
 		
 		int compteurRetour = 0;
 		
@@ -99,7 +97,7 @@ public class FraisHorsForfaitMdl {
 			try {
 				connect = connexion.getConnection();
 			} catch(Exception e) {
-				System.err.println("["+logTrace+"] - ERREUR - Erreur lors de la connexion à la BDD");
+				logTrace.severe("Erreur lors de la connexion à la BDD");
 			}
 			
 			//-- Transactions
@@ -109,24 +107,119 @@ public class FraisHorsForfaitMdl {
 			statement.setString(2, mois);
 			ResultSet result = statement.executeQuery();
 			
-			System.out.println("["+logTrace+"] - INFO - Récupération de tous les frais hors forfait du mois effectuée avec succès");
-			System.out.println("["+logTrace+"] - INFO - Calcul du nombre de fiches hors forfait");
+			logTrace.info("Récupération de tous les frais hors forfait du mois effectuée avec succès");
+			logTrace.info("Calcul du nombre de fiches hors forfait");
 			
 			while(result.next()) {
 				compteurRetour = result.getInt("nbFiches");
 			}
 			
-			System.out.println("["+logTrace+"] - INFO - Calcul du nombre de frais hors forfait effecuté avec succès");
-			System.out.println("["+logTrace+"] - INFO - Retour du compteur de frais hors forfait ("+compteurRetour+")");
+			logTrace.info("Calcul du nombre de frais hors forfait effecuté avec succès");
+			logTrace.info("Retour du compteur de frais hors forfait ("+compteurRetour+")");
 			
 		} catch(SQLException e) {
-			System.err.println("["+logTrace+"] - ERREUR - Erreur SQL : " + e.getMessage());
+			logTrace.severe("Erreur SQL : " + e.getMessage());
 		} catch(Exception e) {
-			System.err.println("["+logTrace+"] - ERREUR - Erreur lors du traitement des données : " + e);
+			logTrace.severe("Erreur lors du traitement des données : " + e);
 		} finally {
 			connexion.closeConnection();
 		}
 		
 		return compteurRetour;
+	}
+	
+	/**
+	 * Récupération du nombre total de frais hors forfait
+	 * 
+	 * @return int
+	 */
+	public static int getTotalNbFraisHorsForfait() {
+		logTrace.setLevel(Level.INFO);
+		logTrace.info("["+logTrace+"] - INFO - getTotalNbFraisHorsForfait()");
+		logTrace.info("["+logTrace+"] - INFO - Récupération du nombre total de frais hors forfait");
+		
+		int nbFraisHorsForfait = 0;
+		
+		try {
+			//-- Récupération de la connexion
+			Connection connect = null;
+			try {
+				connect = connexion.getConnection();
+			} catch(Exception e) {
+				logTrace.severe("Erreur lors de la connexion à la BDD");
+			}
+			
+			//-- Transactions
+
+			PreparedStatement statement = connect.prepareStatement("SELECT COUNT(*) AS nbFraisHorsForfait FROM LigneFraisHorsForfait");
+			ResultSet result = statement.executeQuery();
+			
+			logTrace.info("Récupération du nombre de frais hors forfait effectuée avec succès");
+			logTrace.info("Incrémentation du compteur");
+			
+			while(result.next())
+				nbFraisHorsForfait = result.getInt("nbFraisHorsForfait");
+			
+			logTrace.info("Nombre de frais hors forfait récupérés : " + nbFraisHorsForfait);
+			logTrace.info("Retour de la liste de frais hors forfait");
+			
+		} catch(SQLException e) {
+			logTrace.severe("Erreur SQL : " + e.getMessage());
+		} catch(Exception e) {
+			logTrace.severe("Erreur lors du traitement des données : " + e);
+		} finally {
+			connexion.closeConnection();
+		}
+		
+		return nbFraisHorsForfait;
+		
+	}
+	
+	/**
+	 * Récupération du nombre de frais hors forfait en attente
+	 * 
+	 * @return int
+	 */
+	public static int getNbFraisHorsForfaitAttente() {
+		logTrace.setLevel(Level.INFO);
+		logTrace.info("getNbFraisHorsForfaitAttente()");
+		logTrace.info("Récupération du nombre de frais hors forfait en attente de validation");
+		
+		int nbFraisHorsForfaitAttente = 0;
+		
+		try {
+			//-- Récupération de la connexion
+			Connection connect = null;
+			try {
+				connect = connexion.getConnection();
+			} catch(Exception e) {
+				logTrace.severe("Erreur lors de la connexion à la BDD");
+			}
+			
+			//-- Transactions
+
+			PreparedStatement statement = connect.prepareStatement("SELECT COUNT(*) AS nbFraisHorsForfaitAttente FROM LigneFraisHorsForfait l, FicheFrais f WHERE l.mois = f.mois AND f.idEtat = ?");
+			statement.setString(1, "CL");
+			ResultSet result = statement.executeQuery();
+			
+			logTrace.info("Récupération du nombre de frais hors forfait effectuée avec succès");
+			logTrace.info("Incrémentation du compteur");
+			
+			while(result.next())
+				nbFraisHorsForfaitAttente = result.getInt("nbFraisHorsForfaitAttente");
+			
+			logTrace.info("Nombre de frais hors forfait en attente récupérés : " + nbFraisHorsForfaitAttente);
+			logTrace.info("Retour du nombre de frais hors forfait en attente");
+			
+		} catch(SQLException e) {
+			logTrace.severe("Erreur SQL : " + e.getMessage());
+		} catch(Exception e) {
+			logTrace.severe("Erreur lors du traitement des données : " + e);
+		} finally {
+			connexion.closeConnection();
+		}
+		
+		return nbFraisHorsForfaitAttente;
+		
 	}
 }

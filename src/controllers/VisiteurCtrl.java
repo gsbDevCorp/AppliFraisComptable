@@ -8,8 +8,6 @@ import java.sql.*;
  * ---------------------------------
  * 
  * @author Robin BILLY - SIO2
- * @author Chafik DAGGAG - SIO2
- * Package controllers
  * @version 1.0.0
  *
  */
