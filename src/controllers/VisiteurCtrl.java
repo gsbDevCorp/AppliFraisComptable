@@ -1,6 +1,10 @@
 package controllers;
 
 import java.sql.*;
+import java.util.ArrayList;
+
+import models.FicheFraisMdl;
+import models.FraisForfaitMdl;
 
 /**
  * ---------------------------------
@@ -16,8 +20,8 @@ public class VisiteurCtrl {
 	//-- Attributs
 	
 	private String id, nom, prenom, adresse, cp, ville;
-	private String logTrace = this.getClass().getSimpleName();
 	private Date dateEmbauche;
+	private ArrayList<FicheFraisCtrl> listeFicheFrais;
 	
 	//-- Constructeurs
 	
@@ -29,18 +33,21 @@ public class VisiteurCtrl {
 	}
 	
 	/**
-	 * Constructeur VisiteurCtrl simplifié
+	 * Constructeur VisiteurCtrl simplifié <br>
 	 * 
 	 * @param id String
 	 * @param nom String
 	 * @param prenom String
 	 */
 	public VisiteurCtrl(String id, String nom, String prenom) {
-		
+		this.setId(id);
+		this.setNom(nom);
+		this.setPrenom(prenom);
+		this.listeFicheFrais = new ArrayList<FicheFraisCtrl>();
 	}
 	
 	/**
-	 * Constructeur VisiteurCtrl complet
+	 * Constructeur VisiteurCtrl complet <br>
 	 * 
 	 * @param id String
 	 * @param nom String
@@ -58,6 +65,7 @@ public class VisiteurCtrl {
 		this.setCp(cp);
 		this.setVille(ville);
 		this.setDateEmbauche(dateEmbauche);
+		this.listeFicheFrais = new ArrayList<FicheFraisCtrl>();
 	}
 
 	//-- Accesseurs | Modificateurs
@@ -188,5 +196,69 @@ public class VisiteurCtrl {
 		this.dateEmbauche = dateEmbauche;
 	}
 	
+	/**
+	 * Accesseur listeFicheFrais
+	 * 
+	 * @return ArrayList<FicheFraisCtrl>
+	 */
+	public ArrayList<FicheFraisCtrl> getListeFicheFrais() {
+		return this.listeFicheFrais;
+	}
+	
+	/**
+	 * Modificateur listeFicheFrais
+	 * 
+	 * @param listeFicheFrais ArrayList<FicheFraisCtrl>
+	 */
+	public void setListeFicheFrais(ArrayList<FicheFraisCtrl> listeFicheFrais) {
+		this.listeFicheFrais = listeFicheFrais;
+	}
+	
+	//-- Méthodes
+	
+	/**
+	 * Chargement de l'ensemble des fiches de frais du visiteur
+	 * 
+	 * @return ArrayList<FicheFraisCtrl>
+	 */
+	public ArrayList<FicheFraisCtrl> loadFichesFrais() {
+		return FicheFraisMdl.getFichesFrais(this.id);
+	}
+	
+	/**
+	 * Récupération de toutes les fiches de frais dont l'état est celui spécifié en paramètre
+	 * <p>
+	 * Rappel :
+	 * <ul>
+	 * <li>CL = Saisie clôturée</li>
+	 * <li>CR = Fiche créee, saisie en cours</li>
+	 * <li>RB = Remboursée</li>
+	 * <li>VA = Validée et mise en paiement</li>
+	 * </ul>
+	 * </p>
+	 * 
+	 * @param etat String
+	 * @return ArrayList<FicheFraisCtrl>
+	 */
+	public ArrayList<FicheFraisCtrl> getFichesFraisEtat(String etat) {
+		
+		ArrayList<FicheFraisCtrl> listeRetour = new ArrayList<FicheFraisCtrl>();
+		
+		for(FicheFraisCtrl ficheFrais : this.getListeFicheFrais())
+			if(ficheFrais.getIdEtat().equalsIgnoreCase(etat))
+				listeRetour.add(ficheFrais);
+		
+		return listeRetour;
+	}
+	
+	/**
+	 * Méthode d'affichage toString <br>
+	 * Retourne un visiteur simplifié
+	 * 
+	 * @return String
+	 */
+	public String toString() {
+		return this.getNom() + " " + this.getPrenom();
+	}
 
 }

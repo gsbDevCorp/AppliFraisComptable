@@ -36,7 +36,7 @@ public class ComptableMdl {
 	 * @return ComptableCtrl
 	 */
 	public static ComptableCtrl connexionComptable(String identifiant, String mdp) {
-		logTrace.setLevel(Level.INFO);
+		logTrace.setLevel(Level.WARNING);
 		logTrace.info("connexionComptable()");
 		logTrace.info("Vérification des identifiants de connexion du comptable : " + identifiant);
 		
@@ -84,7 +84,7 @@ public class ComptableMdl {
 	 * @return boolean
 	 */
 	public static boolean checkPassword(int id, String password) {
-		logTrace.setLevel(Level.INFO);
+		logTrace.setLevel(Level.WARNING);
 		logTrace.info("checkPassword()");
 		logTrace.info("Vérification du mot de passe comptable : " + id);
 		
@@ -131,7 +131,7 @@ public class ComptableMdl {
 	 * @param password String
 	 */
 	public static void setPassword(int id, String password) {
-		logTrace.setLevel(Level.INFO);
+		logTrace.setLevel(Level.WARNING);
 		logTrace.info("setPassword()");
 		logTrace.info("Modification du mot de passe comptable : " + id);
 		

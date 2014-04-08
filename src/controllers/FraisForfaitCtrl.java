@@ -1,6 +1,9 @@
 package controllers;
 
 import java.sql.*;
+import java.util.ArrayList;
+
+import models.FraisForfaitMdl;
 
 /**
  * ---------------------------------
@@ -20,10 +23,10 @@ public class FraisForfaitCtrl {
 	//-- Constructeurs
 	
 	/**
-	 * Constructeur FraisForfaitCtrl sans paramètres
+	 * Constructeur FraisForfaitCtrl par défaut
 	 */
 	public FraisForfaitCtrl() {
-		
+
 	}
 	
 	/**
@@ -35,6 +38,7 @@ public class FraisForfaitCtrl {
 	public FraisForfaitCtrl(String idFraisForfait, int quantite) {
 		this.setIdFraisForfait(idFraisForfait);
 		this.setQuantite(quantite);
+		
 	}
 	
 	//-- Accesseurs | Modificateurs
@@ -71,8 +75,5 @@ public class FraisForfaitCtrl {
 	public void setQuantite(int quantite) {
 		this.quantite = quantite;
 	}
-	
-	//-- Méthodes
-	
-	
+
 }

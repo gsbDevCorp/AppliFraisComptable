@@ -13,14 +13,4 @@ public class VisiteurMdlTest {
 	public void setUp() throws Exception {
 	}
 
-	@Test
-	public void testGetAllVisitors() {
-		assertTrue("Nombre de visiteurs retournés incorrect.",VisiteurMdl.getAllVisitors().size() == VisiteurMdl.getNbVisitors());
-	}
-	
-	@Test
-	public void testGetNbVisitors() {
-		assertTrue("Mauvais nombre de visiteurs",VisiteurMdl.getNbVisitors() == 27);
-	}
-
 }

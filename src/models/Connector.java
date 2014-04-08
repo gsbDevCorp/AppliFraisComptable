@@ -36,7 +36,7 @@ public class Connector {
 	 * 
 	 */
 	private void loadJDBCDriver() {
-		logTrace.setLevel(Level.INFO);
+		logTrace.setLevel(Level.WARNING);
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		}
@@ -51,7 +51,7 @@ public class Connector {
 	 * @return Connection
 	 */
 	public static Connection getConnection() {
-		logTrace.setLevel(Level.INFO);
+		logTrace.setLevel(Level.WARNING);
 		try {
 			if(connect == null || connect.isClosed()) {
 				try {
@@ -87,7 +87,7 @@ public class Connector {
 	 * Fermeture de l'instance de connexion
 	 */
 	public void closeConnection() {
-		logTrace.setLevel(Level.INFO);
+		logTrace.setLevel(Level.WARNING);
 		if (this.connect != null) {
 			try {
 				this.connect.close();

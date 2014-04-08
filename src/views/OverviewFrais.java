@@ -3,8 +3,11 @@ package views;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import overrides.Table;
+import overrides.TableModel;
 import controllers.ComptableCtrl;
+import controllers.FicheFraisCtrl;
+import controllers.FraisForfaitCtrl;
+import controllers.VisiteurCtrl;
 import models.ComptableMdl;
 import models.FraisForfaitMdl;
 import models.FraisHorsForfaitMdl;
@@ -28,10 +31,17 @@ import java.util.Locale;
 public class OverviewFrais extends JPanel implements ActionListener {
 	
 	//-- Attributs
-	private JButton retourBut, deconnexionBut;
+	private JButton validerChoixBut, retourBut, deconnexionBut;
 	private JLabel comptableLabel, dateLabel, categorieLabel;
-	private JLabel nbVisiteursLabel, fraisForfaitLabel, fraisHForfaitLabel;
-	private JLabel nbVisiteursValue, fraisForfaitValue, fraisHForfaitValue;
+	
+	private JComboBox<String> choixEtatCombo;
+	private JComboBox<VisiteurCtrl> choixVisiteurCombo;
+	
+	private TableModel tableTableModel;
+	private JTable tableau;
+	
+	private ArrayList<VisiteurCtrl> listeVisiteurs;
+	
 	private Fenetre fenetre;
 	private ComptableCtrl comptable;
 	
@@ -47,11 +57,15 @@ public class OverviewFrais extends JPanel implements ActionListener {
 		mainPanel.setLayout(new GridBagLayout());
 		mainPanel.setBackground(new Color(141,182,205));
 		
+		//-- Instanciation de la liste de visiteurs et des listes de fiches de frais
+		this.listeVisiteurs = VisiteurMdl.getAllVisitors();
+		for(VisiteurCtrl visiteur : this.listeVisiteurs)
+			visiteur.loadFichesFrais();
+		
 		//-- Instanciation des attributs
+		this.validerChoixBut = new JButton("Valider");
+		
 		this.retourBut = new JButton("Retour");
-		this.retourBut.setBackground(new Color(221,72,20));
-		this.retourBut.setFont(new Font("Arial", Font.BOLD, 15));
-		this.retourBut.setForeground(new Color(255,255,255));
 		
 		this.deconnexionBut = new JButton("Déconnexion");
 		this.deconnexionBut.setBackground(new Color(255,0,0));
@@ -70,76 +84,44 @@ public class OverviewFrais extends JPanel implements ActionListener {
 		this.categorieLabel.setFont(new Font("Arial", Font.BOLD, 15));
 		this.categorieLabel.setForeground(new Color(255,255,255));
 		
-		this.nbVisiteursLabel = new JLabel("Nombre de visiteurs :");
-		this.nbVisiteursLabel.setFont(new Font("Arial", Font.BOLD, 15));
-		this.nbVisiteursLabel.setForeground(new Color(255,255,255));
+		this.choixEtatCombo = new JComboBox<String>();
+		this.choixEtatCombo.addItem("Saisie clôturée");
+		this.choixEtatCombo.addItem("Fiche créée, saisie en cours");
+		this.choixEtatCombo.addItem("Remboursée");
+		this.choixEtatCombo.addItem("Validée et mise en paiement");
 		
-		this.nbVisiteursValue = new JLabel(VisiteurMdl.getNbVisitors()+"");
-		this.nbVisiteursValue.setFont(new Font("Arial", Font.BOLD, 15));
-		this.nbVisiteursValue.setForeground(new Color(255,255,255));
+		this.choixVisiteurCombo = new JComboBox<VisiteurCtrl>();
+		for(VisiteurCtrl visiteur : this.listeVisiteurs)
+			this.choixVisiteurCombo.addItem(visiteur);
 		
-		this.fraisForfaitLabel = new JLabel("Fiches de frais forfait en attente :");
-		this.fraisForfaitLabel.setFont(new Font("Arial", Font.BOLD, 15));
-		this.fraisForfaitLabel.setForeground(new Color(255,255,255));
-		
-		this.fraisForfaitValue = new JLabel(FraisForfaitMdl.getNbFraisForfaitAttente() +"/"+ FraisForfaitMdl.getTotalNbFraisForfait());
-		this.fraisForfaitValue.setFont(new Font("Arial", Font.BOLD, 15));
-		this.fraisForfaitValue.setForeground(new Color(255,255,255));
-
-		this.fraisHForfaitLabel = new JLabel("Fiches de frais hors forfait en attente :");
-		this.fraisHForfaitLabel.setFont(new Font("Arial", Font.BOLD, 15));
-		this.fraisHForfaitLabel.setForeground(new Color(255,255,255));
-		
-		this.fraisHForfaitValue = new JLabel(FraisHorsForfaitMdl.getNbFraisHorsForfaitAttente() +"/"+ FraisHorsForfaitMdl.getTotalNbFraisHorsForfait());
-		this.fraisHForfaitValue.setFont(new Font("Arial", Font.BOLD, 15));
-		this.fraisHForfaitValue.setForeground(new Color(255,255,255));
-
 		//-- Ajout à l'ActionListener
+		this.choixEtatCombo.addActionListener(this);
+		this.choixVisiteurCombo.addActionListener(this);
+		this.validerChoixBut.addActionListener(this);
 		this.retourBut.addActionListener(this);
 		this.deconnexionBut.addActionListener(this);
 		
-		JTable tableau = new JTable(new Table());
 		//-- Création du tableau
-		/*String  title[] = {"Visiteur","Libellé","État","Montant","Détails"};
+		this.tableTableModel = new TableModel(this.listeVisiteurs.get(0), "CL");
 		
-		Object[][] data;
-		data.
+		this.tableau = new JTable(tableTableModel);
+		this.tableau.setPreferredScrollableViewportSize(new Dimension(700, 300));
+		this.tableau.setFillsViewportHeight(true);
+		this.tableau.setRowSelectionAllowed(true);
+		this.tableau.setColumnSelectionAllowed(false);
+		this.tableau.setAutoCreateRowSorter(true);
 		
-		String[] comboData = {"Très bien", "Bien", "Mal"};
-		JTable tableau;
-	    //Données de notre tableau
-	    Object[][] data = {   
-	      {"Cysboy", "6boy", comboData[0], new Boolean(true)},
-	      {"BZHHydde", "BZH", comboData[0], new Boolean(false)},
-	      {"IamBow", "BoW", comboData[0], new Boolean(false)},
-	      {"FunMan", "Year", comboData[0], new Boolean(true)}
-	    };
-	   
-	    //Combo à utiliser
-	    JComboBox combo = new JComboBox(comboData);
-	    new JT
-	    tableau = new JTable(data, title);      
-	    tableau.setRowHeight(30);
-	    //On définit l'éditeur par défaut pour la cellule en lui spécifiant quel type d'affichage prendre en compte
-	    tableau.getColumn("Taille").setCellEditor(new DefaultCellEditor(combo));*/
-		
-		ArrayList<ArrayList<Object>> liste = FraisForfaitMdl.getFraisForfaitAttente();
-		for(ArrayList<Object> ligne : liste) {
-			/*listeItem = 
-			for(Object item : ligne) {
-				
-			}*/
-			System.out.println(ligne);
-		}
-
 	    //-- Mise en forme
 	    GridBagConstraints gbc = new GridBagConstraints();
 	    
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        
 		// Comptable (label)
 		gbc.gridx = gbc.gridy = 0;
 		gbc.gridheight = gbc.gridwidth = 1;
 		gbc.anchor = GridBagConstraints.BASELINE;
-		gbc.insets = new Insets(0, 10, 0, 0);
+		gbc.insets = new Insets(0, 10, 0, 10);
 		mainPanel.add(this.comptableLabel, gbc);
 		
 		// Date (label)
@@ -147,7 +129,7 @@ public class OverviewFrais extends JPanel implements ActionListener {
 		gbc.gridy = 0;
 		gbc.gridheight = gbc.gridwidth = 1;
 		gbc.anchor = GridBagConstraints.BASELINE;
-		gbc.insets = new Insets(0, 10, 0, 0);
+		gbc.insets = new Insets(0, 10, 0, 10);
 		mainPanel.add(this.dateLabel, gbc);
 		
 		// Déconnexion (Button)
@@ -155,89 +137,71 @@ public class OverviewFrais extends JPanel implements ActionListener {
 		gbc.gridy = 0;
 		gbc.gridheight = 1;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.anchor = GridBagConstraints.BASELINE;
-		gbc.insets = new Insets(0, 10, 0, 0);
+		gbc.insets = new Insets(0, 10, 0, 10);
 		mainPanel.add(this.deconnexionBut, gbc);
 		
+        gbc.weightx = 0;
+        gbc.weighty = 0;
+	
 		// Categorie (label)
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		gbc.gridheight = 1;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.fill = GridBagConstraints.CENTER;
 		gbc.anchor = GridBagConstraints.BASELINE;
-		gbc.insets = new Insets(5, 10, 0, 0);
+		gbc.insets = new Insets(5, 10, 0, 10);
 		mainPanel.add(this.categorieLabel, gbc);
 		
-		// Nombre de visiteurs (label)
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        
+		// Choix Visiteur (Combo)
 		gbc.gridx = 0;
+		gbc.gridy = 2;
+		gbc.gridheight = 1;
+		gbc.gridwidth = 1;
+		gbc.anchor = GridBagConstraints.BASELINE_LEADING;
+		gbc.insets = new Insets(10, 10, 0, 10);
+		mainPanel.add(this.choixVisiteurCombo, gbc);
+		
+		// Choix Etat (Combo)
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		gbc.gridheight = 1;
+		gbc.gridwidth = 1;
+		gbc.anchor = GridBagConstraints.BASELINE_LEADING;
+		gbc.insets = new Insets(10, 10, 0, 10);
+		mainPanel.add(this.choixEtatCombo, gbc);
+		
+		// Valider choix (Button)
+		gbc.gridx = 2;
 		gbc.gridy = 2;
 		gbc.gridheight = 1;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		gbc.anchor = GridBagConstraints.BASELINE_LEADING;
-		gbc.insets = new Insets(10, 10, 0, 0);
-		mainPanel.add(this.nbVisiteursLabel, gbc);
-		
-		// Nombre de visiteurs (Label|Value)
-		gbc.gridx = 1;
-		gbc.gridy = 2;
-		gbc.gridheight = 1;
-		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		gbc.anchor = GridBagConstraints.BASELINE_TRAILING;
-		gbc.insets = new Insets(5, 10, 0, 0);
-		mainPanel.add(this.nbVisiteursValue, gbc);
-		
-		// Nombre de frais forfait (label)
-		gbc.gridx = 0;
-		gbc.gridy = 3;
-		gbc.gridheight = 1;
-		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		gbc.anchor = GridBagConstraints.BASELINE_LEADING;
-		gbc.insets = new Insets(5, 10, 0, 0);
-		mainPanel.add(this.fraisForfaitLabel, gbc);
-		
-		// Nombre de frais forfait (Label|Value)
-		gbc.gridx = 1;
-		gbc.gridy = 3;
-		gbc.gridheight = 1;
-		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		gbc.anchor = GridBagConstraints.BASELINE_TRAILING;
-		gbc.insets = new Insets(5, 10, 0, 0);
-		mainPanel.add(this.fraisForfaitValue, gbc);
-		
-		// Nombre de frais hors forfait (label)
-		gbc.gridx = 0;
-		gbc.gridy = 4;
-		gbc.gridheight = 1;
-		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		gbc.anchor = GridBagConstraints.BASELINE_LEADING;
-		gbc.insets = new Insets(5, 10, 0, 0);
-		mainPanel.add(this.fraisHForfaitLabel, gbc);
-		
-		// Nombre de frais hors forfait (Label|Value)
-		gbc.gridx = 1;
-		gbc.gridy = 4;
-		gbc.gridheight = 1;
-		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		gbc.anchor = GridBagConstraints.BASELINE_TRAILING;
-		gbc.insets = new Insets(5, 10, 0, 0);
-		mainPanel.add(this.fraisHForfaitValue, gbc);
+		gbc.insets = new Insets(10, 10, 0, 10);
+		mainPanel.add(this.validerChoixBut, gbc);
         
         // Tableau
 		gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 3;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.anchor = GridBagConstraints.BASELINE_LEADING;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(5, 10, 0, 0);
-        mainPanel.add(new JScrollPane(tableau), gbc);
+        gbc.insets = new Insets(5, 10, 0, 10);
+        mainPanel.add(new JScrollPane(this.tableau), gbc);
         
         // Retour (Button)
 		gbc.gridx = 0;
-		gbc.gridy = 6;
+		gbc.gridy = 4;
 		gbc.gridheight = 1;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		gbc.anchor = GridBagConstraints.BASELINE;
-		gbc.insets = new Insets(0, 10, 0, 0);
+		gbc.insets = new Insets(0, 10, 0, 10);
 		mainPanel.add(this.retourBut, gbc);
 		
         return mainPanel;
@@ -245,6 +209,23 @@ public class OverviewFrais extends JPanel implements ActionListener {
 	
 	public void actionPerformed(ActionEvent event) {
 		Object evt = event.getSource();
+		if(evt.equals(this.validerChoixBut)) {
+			String etat;
+			switch(this.choixEtatCombo.getSelectedItem().toString()) {
+				case "Saisie clôturée" : etat = "CL"; break;
+				case "Fiche créée, saisie en cours" : etat = "CR"; break;
+				case "Remboursée" : etat = "RB"; break;
+				case "Validée et mise en paiement" : etat = "VA"; break;
+				default : etat = "CL"; break;
+			}
+			this.tableTableModel.setListeFicheFrais((VisiteurCtrl)this.choixVisiteurCombo.getSelectedItem(),etat);
+			this.tableau.setAutoCreateRowSorter(false);
+			this.tableau.invalidate();
+			this.tableau.revalidate();
+			this.tableau.clearSelection();
+			this.tableau.setAutoCreateRowSorter(true);
+			this.tableau.repaint();
+		}
 		if(evt.equals(this.retourBut))
 			this.fenetre.setActivePanel(new Accueil(this.fenetre, this.comptable).launchPanel());
 		if(evt.equals(this.deconnexionBut))
