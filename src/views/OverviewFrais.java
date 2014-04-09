@@ -3,15 +3,9 @@ package views;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import overrides.TableModel;
-import controllers.ComptableCtrl;
-import controllers.FicheFraisCtrl;
-import controllers.FraisForfaitCtrl;
-import controllers.VisiteurCtrl;
-import models.ComptableMdl;
-import models.FraisForfaitMdl;
-import models.FraisHorsForfaitMdl;
-import models.VisiteurMdl;
+import overrides.*;
+import controllers.*;
+import models.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -28,7 +22,7 @@ import java.util.Locale;
  * @version 1.0.0
  *
  */
-public class OverviewFrais extends JPanel implements ActionListener {
+public class OverviewFrais extends JPanel implements ActionListener, MouseListener {
 	
 	//-- Attributs
 	private JButton validerChoixBut, retourBut, deconnexionBut;
@@ -110,6 +104,7 @@ public class OverviewFrais extends JPanel implements ActionListener {
 		this.tableau.setRowSelectionAllowed(true);
 		this.tableau.setColumnSelectionAllowed(false);
 		this.tableau.setAutoCreateRowSorter(true);
+		this.tableau.addMouseListener(this);
 		
 	    //-- Mise en forme
 	    GridBagConstraints gbc = new GridBagConstraints();
@@ -157,7 +152,6 @@ public class OverviewFrais extends JPanel implements ActionListener {
 		
         gbc.weightx = 1;
         gbc.weighty = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         
 		// Choix Visiteur (Combo)
 		gbc.gridx = 0;
@@ -165,6 +159,7 @@ public class OverviewFrais extends JPanel implements ActionListener {
 		gbc.gridheight = 1;
 		gbc.gridwidth = 1;
 		gbc.anchor = GridBagConstraints.BASELINE_LEADING;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.insets = new Insets(10, 10, 0, 10);
 		mainPanel.add(this.choixVisiteurCombo, gbc);
 		
@@ -174,6 +169,7 @@ public class OverviewFrais extends JPanel implements ActionListener {
 		gbc.gridheight = 1;
 		gbc.gridwidth = 1;
 		gbc.anchor = GridBagConstraints.BASELINE_LEADING;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.insets = new Insets(10, 10, 0, 10);
 		mainPanel.add(this.choixEtatCombo, gbc);
 		
@@ -183,6 +179,7 @@ public class OverviewFrais extends JPanel implements ActionListener {
 		gbc.gridheight = 1;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		gbc.anchor = GridBagConstraints.BASELINE_LEADING;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.insets = new Insets(10, 10, 0, 10);
 		mainPanel.add(this.validerChoixBut, gbc);
         
@@ -201,6 +198,7 @@ public class OverviewFrais extends JPanel implements ActionListener {
 		gbc.gridheight = 1;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		gbc.anchor = GridBagConstraints.BASELINE;
+		gbc.fill = GridBagConstraints.NONE;
 		gbc.insets = new Insets(0, 10, 0, 10);
 		mainPanel.add(this.retourBut, gbc);
 		
@@ -230,5 +228,35 @@ public class OverviewFrais extends JPanel implements ActionListener {
 			this.fenetre.setActivePanel(new Accueil(this.fenetre, this.comptable).launchPanel());
 		if(evt.equals(this.deconnexionBut))
 			this.fenetre.setActivePanel(new Connexion(this.fenetre).launchPanel());
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent evt) {
+
+		if (evt.getClickCount() == 2) {			
+			Point p = evt.getPoint();
+			
+			int row = this.tableau.rowAtPoint(p);
+			int column = this.tableau.convertColumnIndexToModel(this.tableau.columnAtPoint(p));
+			if (row >= 0 && column >= 0)
+				this.fenetre.setActivePanel(new DetailFrais(this.fenetre, this.comptable,this.tableTableModel.getFicheFrais((String)this.tableau.getValueAt(row, 1)),this.tableTableModel.getVisiteurActif()).launchPanel());
+		}
+	}
+		
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		
 	}
 }

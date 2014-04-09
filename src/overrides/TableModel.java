@@ -18,7 +18,7 @@ import models.FraisForfaitMdl;
  */
 public class TableModel extends AbstractTableModel {
 
-	private String[] columnNames = {"Visiteur","Mois","Etat","Montant validé","Nombre de justificatifs","Gérer"};
+	private String[] columnNames = {"Visiteur","Mois","Etat","Montant validé","Nombre de justificatifs"};
 	private ArrayList<FicheFraisCtrl> listeFicheFrais;
 	private VisiteurCtrl visiteur;
 	
@@ -65,9 +65,6 @@ public class TableModel extends AbstractTableModel {
 			case 4 :
 				result = this.listeFicheFrais.get(row).getNbJustificatif();
 				break;
-			case 5 :
-				result = " ";
-				break;
 		}
 		return result;
 	}
@@ -77,10 +74,41 @@ public class TableModel extends AbstractTableModel {
 		return getValueAt(0, c).getClass();
 	}
 	
+	/**
+	 * Gestion de la modification de visiteur et/ou d'état de fiche de frais
+	 * 
+	 * @param visiteur VisiteurCtrl
+	 * @param etat String
+	 */
 	public void setListeFicheFrais(VisiteurCtrl visiteur, String etat) {
 		this.visiteur = visiteur;
 		this.listeFicheFrais.clear();
 		this.visiteur.setListeFicheFrais(this.visiteur.loadFichesFrais());
 		this.listeFicheFrais = this.visiteur.getFichesFraisEtat(etat);
+	}
+	
+	/**
+	 * Gestion de la récupération d'une fiche de frais pour
+	 * validation et mise en paiement
+	 * 
+	 * @param mois String
+	 * @return FicheFraisCtrl
+	 */
+	public FicheFraisCtrl getFicheFrais(String mois) {
+		String moisFormate = mois.substring(0, 4) + mois.substring(7, 9);
+		for(FicheFraisCtrl ficheFrais : this.listeFicheFrais) {
+			if(ficheFrais.getMois().equalsIgnoreCase(moisFormate))
+				return ficheFrais;
+		}
+		return null;
+	}
+	
+	/**
+	 * Récupération du visiteur actif sur le tableau<br>
+	 * Permet de s'assurer du visiteur récupéré
+	 * @return
+	 */
+	public VisiteurCtrl getVisiteurActif() {
+		return this.visiteur;
 	}
 }

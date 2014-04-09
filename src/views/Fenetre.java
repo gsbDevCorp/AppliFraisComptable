@@ -19,8 +19,8 @@ public class Fenetre extends JFrame {
 		//-- Définition de la fenêtre de base
 		this.setTitle("AppliFrais - Comptable");
 		this.setIconImage(new ImageIcon("img/gsb.png").getImage());
-		//this.setExtendedState(this.MAXIMIZED_BOTH);
-		this.setSize(1000, 650);
+		this.setExtendedState(this.MAXIMIZED_BOTH);
+		//this.setSize(1000, 650);
 		this.setMinimumSize(new Dimension(1000, 650));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
