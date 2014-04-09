@@ -27,6 +27,7 @@ import models.VisiteurMdl;
 import overrides.TableModel;
 import controllers.ComptableCtrl;
 import controllers.FicheFraisCtrl;
+import controllers.FraisForfaitCtrl;
 import controllers.VisiteurCtrl;
 
 public class DetailFrais extends JPanel implements ActionListener, MouseListener {
@@ -34,7 +35,10 @@ public class DetailFrais extends JPanel implements ActionListener, MouseListener
 	//-- Attributs
 	private JButton retourBut, deconnexionBut;
 	private JLabel comptableLabel, dateLabel, categorieLabel;
-	private JLabel fichefraisLabel, fraisForfaitLabel;
+	private JLabel fichefraisLabel, fraisForfaitLabel, fraisHorsForfaitLabel, montantValideLabel;
+	
+	private ArrayList<JLabel> listeFraisForfaitLabel;
+	private ArrayList<JPanel> listeFraisForfaitJPanel;
 	
 	private Fenetre fenetre;
 	private ComptableCtrl comptable;
@@ -47,6 +51,9 @@ public class DetailFrais extends JPanel implements ActionListener, MouseListener
 		this.comptable = comptable;
 		this.ficheFrais = ficheFrais;
 		this.visiteur = visiteur;
+		
+		this.listeFraisForfaitLabel = new ArrayList<JLabel>();
+		this.listeFraisForfaitJPanel = new ArrayList<JPanel>();
 	}
 	public JPanel launchPanel() {
 		
@@ -54,6 +61,9 @@ public class DetailFrais extends JPanel implements ActionListener, MouseListener
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new GridBagLayout());
 		mainPanel.setBackground(new Color(141,182,205));
+		
+		//-- Chargement des frais spécifiques à la fiche de frais
+		this.ficheFrais.loadListeFraisForfaits();
 		
 		//-- Instanciation des attributs
 		this.retourBut = new JButton("Retour");
@@ -75,10 +85,44 @@ public class DetailFrais extends JPanel implements ActionListener, MouseListener
 		this.categorieLabel.setFont(new Font("Arial", Font.BOLD, 15));
 		this.categorieLabel.setForeground(new Color(255,255,255));
 		
-		this.fichefraisLabel = new JLabel("Fiche de frais du " + this.ficheFrais.getMoisFormate() + " - " + this.visiteur.getNom() + " " + this.visiteur.getPrenom());
+		this.fichefraisLabel = new JLabel("<html><u>Fiche de frais du " + this.ficheFrais.getMoisFormate() + " - " + this.visiteur.getNom() + " " + this.visiteur.getPrenom() + "</u></html>");
 		
-		this.fraisForfaitLabel = new JLabel("Frais forfaits :");
+		this.montantValideLabel = new JLabel("Montant validé : " + this.ficheFrais.getMontantValide() + " €");
 		
+		this.fraisForfaitLabel = new JLabel("<html><u>Frais forfaits :</u></html>");
+		
+		JPanel fraisForfaitPanel = new JPanel();
+		fraisForfaitPanel.setLayout(new GridBagLayout());
+		fraisForfaitPanel.setBackground(new Color(141,182,205));
+		int i = 0;
+		
+		for(FraisForfaitCtrl fraisForfait : this.ficheFrais.getListeFraisForfait()) {		
+			
+			JLabel libelleLabel = new JLabel(fraisForfait.getTypeFrais().getLibelle() + " :");
+			JLabel montantLabel = new JLabel(fraisForfait.getQuantite()*fraisForfait.getTypeFrais().getMontant() + " €");
+			
+			GridBagConstraints gbc = new GridBagConstraints();
+			
+			gbc.gridx = 0;
+			gbc.gridy = i;
+			gbc.gridheight = gbc.gridwidth = 1;
+			gbc.anchor = GridBagConstraints.BASELINE_LEADING;
+			gbc.insets = new Insets(0,10,0,10);
+			fraisForfaitPanel.add(libelleLabel, gbc);
+			
+			gbc.gridx = 1;
+			gbc.gridy = i;
+			gbc.gridheight = 1;
+			gbc.gridwidth = GridBagConstraints.REMAINDER;
+			gbc.fill = GridBagConstraints.HORIZONTAL;
+			gbc.anchor = GridBagConstraints.BASELINE_LEADING;
+			gbc.insets = new Insets(0,10,0,10);
+			fraisForfaitPanel.add(montantLabel, gbc);
+			
+			i++;
+		}
+		this.listeFraisForfaitJPanel.add(fraisForfaitPanel);
+	
 		//-- Ajout à l'ActionListener
 		this.retourBut.addActionListener(this);
 		this.deconnexionBut.addActionListener(this);
@@ -111,7 +155,7 @@ public class DetailFrais extends JPanel implements ActionListener, MouseListener
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.anchor = GridBagConstraints.BASELINE;
-		gbc.insets = new Insets(0, 10, 0, 10);
+		gbc.insets = new Insets(0, 10, 0, 0);
 		mainPanel.add(this.deconnexionBut, gbc);
 		
         gbc.weightx = 0;
@@ -137,13 +181,43 @@ public class DetailFrais extends JPanel implements ActionListener, MouseListener
 		gbc.insets = new Insets(5, 10, 0, 10);
 		mainPanel.add(this.fichefraisLabel, gbc);
 		
+		// Montant validé (label)
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		gbc.gridheight = 1;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.fill = GridBagConstraints.CENTER;
+		gbc.anchor = GridBagConstraints.BASELINE;
+		gbc.insets = new Insets(5, 10, 0, 10);
+		mainPanel.add(this.montantValideLabel, gbc);
+		
+		// Frais forfait (label)
+		gbc.gridx = 0;
+		gbc.gridy = 4;
+		gbc.gridheight = 1;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.fill = GridBagConstraints.BASELINE_LEADING;
+		gbc.anchor = GridBagConstraints.BASELINE_LEADING;
+		gbc.insets = new Insets(5, 10, 0, 10);
+		mainPanel.add(this.fraisForfaitLabel, gbc);
+		
+		for(JPanel panel : this.listeFraisForfaitJPanel) {
+			gbc.gridx = 0;
+			gbc.gridy = GridBagConstraints.RELATIVE;
+			gbc.gridheight = 1;
+			gbc.gridwidth = GridBagConstraints.REMAINDER;
+			gbc.fill = GridBagConstraints.BASELINE_LEADING;
+			gbc.anchor = GridBagConstraints.BASELINE_LEADING;
+			gbc.insets = new Insets(5, 10, 0, 10);
+			mainPanel.add(panel, gbc);
+		}
+		
         gbc.weightx = 1;
         gbc.weighty = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         
         // Retour (Button)
 		gbc.gridx = 0;
-		gbc.gridy = 4;
+		gbc.gridy = GridBagConstraints.RELATIVE;
 		gbc.gridheight = 1;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		gbc.anchor = GridBagConstraints.BASELINE;

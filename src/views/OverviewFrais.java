@@ -134,7 +134,7 @@ public class OverviewFrais extends JPanel implements ActionListener, MouseListen
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.anchor = GridBagConstraints.BASELINE;
-		gbc.insets = new Insets(0, 10, 0, 10);
+		gbc.insets = new Insets(0, 10, 0, 0);
 		mainPanel.add(this.deconnexionBut, gbc);
 		
         gbc.weightx = 0;

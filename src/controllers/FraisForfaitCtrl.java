@@ -17,7 +17,7 @@ import models.FraisForfaitMdl;
 public class FraisForfaitCtrl {
 
 	//-- Attributs
-	private String idFraisForfait;
+	private TypeFraisCtrl typeFrais;
 	private int quantite;
 	
 	//-- Constructeurs
@@ -32,25 +32,16 @@ public class FraisForfaitCtrl {
 	/**
 	 * Constructeur FraisForfaitCtrl avec paramètres
 	 * 
-	 * @param idFraisForfait String
-	 * @param quantite String
+	 * @param typeFrais TypeFraisCtrl
+	 * @param quantite int
 	 */
-	public FraisForfaitCtrl(String idFraisForfait, int quantite) {
-		this.setIdFraisForfait(idFraisForfait);
+	public FraisForfaitCtrl(TypeFraisCtrl typeFrais, int quantite) {
 		this.setQuantite(quantite);
-		
+		this.setTypeFrais(typeFrais);
 	}
 	
 	//-- Accesseurs | Modificateurs
 	
-	/**
-	 * Retourne l'identifiant du frais forfait
-	 * 
-	 * @return String
-	 */
-	public String getIdFraisForfait() {
-		return idFraisForfait;
-	}
 	/**
 	 * Retourne la quantité du frais forfait
 	 * 
@@ -59,14 +50,7 @@ public class FraisForfaitCtrl {
 	public int getQuantite() {
 		return quantite;
 	}
-	/**
-	 * Modifie l'identifiant du frais forfait
-	 * 
-	 * @param idFraisForfait String
-	 */
-	public void setIdFraisForfait(String idFraisForfait) {
-		this.idFraisForfait = idFraisForfait;
-	}
+	
 	/**
 	 * Modifie la quantité du frais forfait
 	 * 
@@ -75,5 +59,23 @@ public class FraisForfaitCtrl {
 	public void setQuantite(int quantite) {
 		this.quantite = quantite;
 	}
-
+	
+	/**
+	 * Retourne le type de frais
+	 * 
+	 * @return TypeFraisCtrl
+	 */
+	
+	public TypeFraisCtrl getTypeFrais() {
+		return this.typeFrais;
+	}
+	
+	/**
+	 * Modifie le type de frais
+	 * 
+	 * @param typeFrais TypeFraisCtrl
+	 */
+	public void setTypeFrais(TypeFraisCtrl typeFrais) {
+		this.typeFrais = typeFrais;
+	}
 }

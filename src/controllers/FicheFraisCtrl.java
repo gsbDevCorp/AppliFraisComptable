@@ -209,12 +209,13 @@ public class FicheFraisCtrl {
 		//-- Méthodes
 		
 		/**
-		 * Chargement de la liste des frais forfaits
+		 * Chargement de la liste des frais forfaits du mois
 		 * 
-		 * @return ArrayList<FraisForfaitCtrl>
+		 * @param idVisiteur String
+		 * @param mois String
 		 */
-		public ArrayList<FraisForfaitCtrl> loadListeFraisForfaits() {
-			return FraisForfaitMdl.getFraisForfait(this.idVisiteur);
+		public void loadListeFraisForfaits() {
+			this.listeFraisForfait = FraisForfaitMdl.getFraisForfait(this.idVisiteur, this.getMois());
 		}
 		
 		/**
