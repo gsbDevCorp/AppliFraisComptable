@@ -232,8 +232,11 @@ public class FicheFraisCtrl {
 		 * @param nouvelEtat String
 		 */
 		public void modifierEtatFiche(String nouvelEtat) {
-			if(nouvelEtat.equalsIgnoreCase("RB")) {
+			if(nouvelEtat.equalsIgnoreCase("VA")) {
 				double montant = 0;
+				for(FraisForfaitCtrl fraisForfait : this.getListeFraisForfait()) {
+					montant += fraisForfait.getQuantite()*fraisForfait.getTypeFrais().getMontant();
+				}
 				for(FraisHorsForfaitCtrl fraisHorsForfait : this.getListeFraisHorsForfait()) {
 					if(fraisHorsForfait.getEtat() == 1)
 						montant += fraisHorsForfait.getMontant();
