@@ -321,9 +321,9 @@ public class DetailFrais extends JPanel implements ActionListener {
 				montantLabel.setForeground(Color.red);
 			}
 			else if(fraisHorsForfait.getEtat() == 1) {
-				libelleLabel.setForeground(Color.green);
-				dateLabel.setForeground(Color.green);
-				montantLabel.setForeground(Color.green);
+				libelleLabel.setForeground(new Color(0,100,0));
+				dateLabel.setForeground(new Color(0,100,0));
+				montantLabel.setForeground(new Color(0,100,0));
 			}
 			
 			JButton valFraisBut = new JButton("Valider");
