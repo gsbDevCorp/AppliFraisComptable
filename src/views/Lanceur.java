@@ -1,10 +1,12 @@
 package views;
-import java.util.ArrayList;
 
-import models.*;
-import controllers.*;
-import views.*;
-
+/**
+ * Classe permettant de lancer l'interface graphique de l'application
+ * 
+ * @author Robin BILLY - SIO2
+ * @version 1.0.0
+ *
+ */
 public class Lanceur {
 
 	/**
