@@ -3,6 +3,7 @@ package controllers;
 import java.sql.*;
 import java.util.ArrayList;
 
+import models.FicheFraisMdl;
 import models.FraisForfaitMdl;
 import models.FraisHorsForfaitMdl;
 
@@ -211,8 +212,6 @@ public class FicheFraisCtrl {
 		/**
 		 * Chargement de la liste des frais forfaits du mois
 		 * 
-		 * @param idVisiteur String
-		 * @param mois String
 		 */
 		public void loadListeFraisForfaits() {
 			this.listeFraisForfait = FraisForfaitMdl.getFraisForfait(this.idVisiteur, this.getMois());
@@ -221,14 +220,27 @@ public class FicheFraisCtrl {
 		/**
 		 * Chargement de la liste des frais hors forfaits
 		 * 
-		 * @return ArrayList<FraisHorsForfaitCtrl>
 		 */
-		public ArrayList<FraisHorsForfaitCtrl> loadListeFraisHorsForfaits() {
-			
-			ArrayList<FraisHorsForfaitCtrl> listeRetour = new ArrayList<FraisHorsForfaitCtrl>();
-			listeRetour = FraisHorsForfaitMdl.getFraisHorsForfait(this.idVisiteur);
-			
-			return listeRetour;
+		public void loadListeFraisHorsForfaits() {
+			this.listeFraisHorsForfait = FraisHorsForfaitMdl.getFraisHorsForfait(this.idVisiteur, this.getMois());
+		}
+		
+		/**
+		 * Appel à la modification de la fiche de frais vers un nouvel etat<br>
+		 * Les traitements sont effectués sur le modèle.
+		 * 
+		 * @param nouvelEtat String
+		 */
+		public void modifierEtatFiche(String nouvelEtat) {
+			if(nouvelEtat.equalsIgnoreCase("RB")) {
+				double montant = 0;
+				for(FraisHorsForfaitCtrl fraisHorsForfait : this.getListeFraisHorsForfait()) {
+					if(fraisHorsForfait.getEtat() == 1)
+						montant += fraisHorsForfait.getMontant();
+				}
+				this.setMontantValide(montant);
+			}
+			FicheFraisMdl.modifierEtatFiche(this.idVisiteur, this.mois, nouvelEtat, this.getMontantValide());
 		}
 		
 		/**

@@ -2,6 +2,8 @@ package controllers;
 
 import java.sql.Date;
 
+import models.FraisHorsForfaitMdl;
+
 /**
  * ---------------------------------
  * Gestion des frais hors forfait
@@ -15,7 +17,7 @@ public class FraisHorsForfaitCtrl {
 
 	//-- Attributs
 	
-	private int id;
+	private int id, etat;
 	private String libelle;
 	private Date date;
 	private double montant;
@@ -36,12 +38,14 @@ public class FraisHorsForfaitCtrl {
 	 * @param libelle String
 	 * @param date Date
 	 * @param montant double
+	 * @param etat int
 	 */
-	public FraisHorsForfaitCtrl(int id, String libelle, Date date, double montant) {
+	public FraisHorsForfaitCtrl(int id, String libelle, Date date, double montant, int etat) {
 		this.setId(id);
 		this.setLibelle(libelle);
 		this.setDate(date);
 		this.setMontant(montant);
+		this.etat = etat;
 	}
 	
 	//-- Accesseurs | Modificateurs
@@ -79,6 +83,19 @@ public class FraisHorsForfaitCtrl {
 		return this.montant;
 	}
 	/**
+	 * Retourne l'état de la fiche hors forfait
+	 * <ul>
+	 * <li>NULL = non traité</li>
+	 * <li>0 = refusée</li>
+	 * <li>1 = validée</li>
+	 * </ul>
+	 * 
+	 * @return int
+	 */
+	public int getEtat() {
+		return this.etat;
+	}
+	/**
 	 * Modification de l'id de la fiche hors forfait
 	 * 
 	 * @param id int
@@ -109,5 +126,20 @@ public class FraisHorsForfaitCtrl {
 	 */
 	public void setMontant(double montant) {
 		this.montant = montant;
+	}
+	/**
+	 * Modification de l'état de la fiche hors forfait<br>
+	 * Par souci d'intégrité, la modification est également effectuée en base de données<br>
+	 * <ul>
+	 * <li>NULL = non traité</li>
+	 * <li>0 = refusée</li>
+	 * <li>1 = validée</li>
+	 * </ul>
+	 * 
+	 * @param montant int
+	 */
+	public void setEtat(int etat) {
+		FraisHorsForfaitMdl.modifierEtat(this.id, etat);
+		this.etat = etat;
 	}
 }

@@ -1,7 +1,10 @@
 package models;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.logging.*;
 
 import controllers.FicheFraisCtrl;
@@ -72,5 +75,56 @@ public class FicheFraisMdl {
 			connexion.closeConnection();
 		}
 		return listeRetour;
+	}
+	
+	/**
+	 * Modification d'une fiche de frais pour un visiteur et un mois donné.<br>
+	 * <ul>
+	 * <li>Mise à jour de l'identifiant d'état</li>
+	 * <li>Mise à jour de la date de modification</li>
+	 * <li>Mise à jour du montant total validé</li>
+	 * 
+	 * @param idVisiteur String
+	 * @param mois String
+	 * @param nouvelEtat String
+	 * @param montantValide double
+	 */
+	public static void modifierEtatFiche(String idVisiteur, String mois, String nouvelEtat, double montantValide) {
+		logTrace.setLevel(Level.WARNING);
+		logTrace.info("validerFiche("+idVisiteur+","+mois+")");
+		logTrace.info("Validation de la fiche de frais");
+		
+		try {
+			//-- Récupération de la connexion
+			Connection connect = null;
+			try {
+				connect = connexion.getConnection();
+			} catch(Exception e) {
+				logTrace.severe("Erreur lors de la connexion à la BDD");
+			}
+			
+			//-- Transactions
+
+			PreparedStatement statement = connect.prepareStatement("UPDATE FicheFrais "
+					+ "SET montantValide = ?, dateModif = ?, idEtat = ?"
+					+ "WHERE idVisiteur = ? "
+					+ "AND mois = ?");
+			statement.setDouble(1, montantValide);
+			statement.setDate(2, new java.sql.Date(System.currentTimeMillis()));
+			statement.setString(3, nouvelEtat);
+			statement.setString(4, idVisiteur);
+			statement.setString(5, mois);
+			statement.executeUpdate();
+			
+			logTrace.info("Mise à jour de la fiche de frais effectuée avec succès");
+			
+		} catch(SQLException e) {
+			logTrace.severe("Erreur SQL : " + e.getMessage());
+		} catch(Exception e) {
+			logTrace.severe("Erreur lors du traitement des données : ");
+			e.printStackTrace();
+		} finally {
+			connexion.closeConnection();
+		}
 	}
 }
