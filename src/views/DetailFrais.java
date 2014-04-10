@@ -312,7 +312,7 @@ public class DetailFrais extends JPanel implements ActionListener {
 		for(final FraisHorsForfaitCtrl fraisHorsForfait : this.ficheFrais.getListeFraisHorsForfait()) {		
 			
 			JLabel libelleLabel = new JLabel(fraisHorsForfait.getLibelle());
-			JLabel dateLabel = new JLabel("le : " + fraisHorsForfait.getDate());
+			JLabel dateLabel = new JLabel("Le : " + fraisHorsForfait.getDate());
 			JLabel montantLabel = new JLabel(fraisHorsForfait.getMontant() + " €");
 			
 			if(fraisHorsForfait.getEtat() == 0) {
