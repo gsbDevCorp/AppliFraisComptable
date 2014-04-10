@@ -26,8 +26,12 @@ import java.util.Locale;
 public class ModifInfosPerso extends JPanel implements ActionListener {
 	
 	//-- Attributs
-	private JButton butValiderModif, butRetour;
+	private JButton validerBut, retourBut, deconnexionBut;
+	private JLabel comptableLabel, dateLabel, accueilLabel;
+	
+	private JLabel oldLabel, newLabel, c_newLabel;
 	private JPassword oldPasswd, newPasswd, c_newPasswd;
+	
 	private Fenetre fenetre;
 	private ComptableCtrl comptable;
 	
@@ -42,59 +46,151 @@ public class ModifInfosPerso extends JPanel implements ActionListener {
 		mainPanel.setLayout(new GridBagLayout());
 		mainPanel.setBackground(new Color(141,182,205));
 		
-		// Définition de la grille
-		JPanel grid = new JPanel();
-		grid.setBorder(BorderFactory.createLineBorder(Color.black));
-		grid.setLayout(new GridLayout(4,1));
+		//-- Instanciation des attributs
+		this.deconnexionBut = new JButton("Déconnexion");
+		this.deconnexionBut.setBackground(new Color(255,0,0));
+		this.deconnexionBut.setFont(new Font("Arial", Font.BOLD, 15));
+		this.deconnexionBut.setForeground(new Color(255,255,255));
+
+		this.comptableLabel = new JLabel(this.comptable.getPrenom()+" "+this.comptable.getNom());
+		this.comptableLabel.setFont(new Font("Arial", Font.BOLD, 15));
+		this.comptableLabel.setForeground(new Color(255,255,255));
+
+		this.dateLabel = new JLabel(new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE).format(new Date()));
+		this.dateLabel.setFont(new Font("Arial", Font.BOLD, 15));
+		this.dateLabel.setForeground(new Color(255,255,255));
+
+		this.accueilLabel = new JLabel("Modification des informations personnelles");
+		this.accueilLabel.setFont(new Font("Arial", Font.BOLD, 15));
+		this.accueilLabel.setForeground(new Color(255,255,255));
 		
-		// Définition des lignes
-		JPanel ligne1 = new JPanel();
-		JPanel ligne2 = new JPanel();
-		JPanel ligne3 = new JPanel();
-		ligne1.setBackground(new Color(141,182,185));
-		ligne1.setBorder(BorderFactory.createLineBorder(Color.black));
-		ligne2.setBackground(new Color(255,255,255));
-		ligne3.setBackground(new Color(255,255,255));
+		this.oldLabel = new JLabel("Ancien mot de passe :");
+		this.newLabel = new JLabel("Nouveau mot de passe :");
+		this.c_newLabel = new JLabel("Confirmation du mot de passe :");
 		
-		// Grid formulaire
-		JPanel gridFormulaire = new JPanel();
-		gridFormulaire.setLayout(new GridLayout(3,2));
-		gridFormulaire.setBackground(new Color(255,255,255));
-		grid.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
-		
-		// Instanciation des attributs
 		this.oldPasswd = new JPassword(20);
 		this.newPasswd = new JPassword(20);
 		this.c_newPasswd = new JPassword(20);
-		this.butValiderModif = new JButton("Valider les modifications");
-		this.butValiderModif.setBackground(new Color(34,139,34));
-		this.butValiderModif.setForeground(new Color(255,255,255));
-		this.butRetour = new JButton("Retour");
-		this.butRetour.setBackground(new Color(141,182,205));
 		
-		// Ajout à l'ActionListener
-		this.butValiderModif.addActionListener(this);
-		this.butRetour.addActionListener(this);
+		this.validerBut = new JButton("Valider les informations");
+		this.retourBut = new JButton("Retour");
 		
-		// Ajout des attributs aux lignes
-		ligne1.add(new JLabel("Informations personnelles :"));
-		gridFormulaire.add(new JLabel("Ancien mot de passe :"));
-		gridFormulaire.add(this.oldPasswd);
-		gridFormulaire.add(new JLabel("Nouveau mot de passe :"));
-		gridFormulaire.add(this.newPasswd);
-		gridFormulaire.add(new JLabel("Confirmation du mot de passe :"));
-		gridFormulaire.add(this.c_newPasswd);
-		ligne2.add(this.butValiderModif);
-		ligne3.add(this.butRetour);
+		//-- Ajout à l'ActionListener
+		this.validerBut.addActionListener(this);
+		this.retourBut.addActionListener(this);
+		this.deconnexionBut.addActionListener(this);
 		
-		// Ajout des lignes à la grille
-		grid.add(ligne1);
-		grid.add(gridFormulaire);
-		grid.add(ligne2);
-		grid.add(ligne3);
+		//-- Mise en forme
+		GridBagConstraints gbc = new GridBagConstraints();
 		
-		// Ajout de la grille au panel principal
-		mainPanel.add(grid);
+		// Comptable (label)
+		gbc.gridx = gbc.gridy = 0;
+		gbc.gridheight = gbc.gridwidth = 1;
+		gbc.anchor = GridBagConstraints.BASELINE;
+		gbc.insets = new Insets(0, 10, 0, 0);
+		mainPanel.add(this.comptableLabel, gbc);
+
+		// Date (label)
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		gbc.gridheight = gbc.gridwidth = 1;
+		gbc.anchor = GridBagConstraints.BASELINE;
+		gbc.insets = new Insets(0, 10, 0, 0);
+		mainPanel.add(this.dateLabel, gbc);
+
+		// Déconnexion (Button)
+		gbc.gridx = 2;
+		gbc.gridy = 0;
+		gbc.gridheight = 1;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.anchor = GridBagConstraints.BASELINE;
+		gbc.insets = new Insets(0, 10, 0, 0);
+		mainPanel.add(this.deconnexionBut, gbc);
+
+		// Accueil (label)
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		gbc.gridheight = 1;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.anchor = GridBagConstraints.BASELINE;
+		gbc.insets = new Insets(5, 10, 0, 0);
+		mainPanel.add(this.accueilLabel, gbc);
+		
+		// Ancien mot de passe (label)
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		gbc.gridheight = 1;
+		gbc.gridwidth = 1;
+		gbc.anchor = GridBagConstraints.BASELINE_LEADING;
+		gbc.insets = new Insets(25, 10, 0, 0);
+		mainPanel.add(this.oldLabel, gbc);
+		
+		// Ancien mot de passe (Password)
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		gbc.gridheight = 1;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.anchor = GridBagConstraints.BASELINE_LEADING;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.insets = new Insets(5, 10, 0, 0);
+		mainPanel.add(this.oldPasswd, gbc);
+		
+		// Nouveau mot de passe (label)
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		gbc.gridheight = 1;
+		gbc.gridwidth = 1;
+		gbc.anchor = GridBagConstraints.BASELINE_LEADING;
+		gbc.insets = new Insets(5, 10, 0, 0);
+		mainPanel.add(this.newLabel, gbc);
+		
+		// Nouveau mot de passe (Password)
+		gbc.gridx = 1;
+		gbc.gridy = 3;
+		gbc.gridheight = 1;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.anchor = GridBagConstraints.BASELINE_LEADING;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.insets = new Insets(5, 10, 0, 0);
+		mainPanel.add(this.newPasswd, gbc);
+		
+		// Confirmation nouveau mot de passe (label)
+		gbc.gridx = 0;
+		gbc.gridy = 4;
+		gbc.gridheight = 1;
+		gbc.gridwidth = 1;
+		gbc.anchor = GridBagConstraints.BASELINE_LEADING;
+		gbc.insets = new Insets(5, 10, 0, 0);
+		mainPanel.add(this.c_newLabel, gbc);
+		
+		// Confirmation nouveau mot de passe (Password)
+		gbc.gridx = 1;
+		gbc.gridy = 4;
+		gbc.gridheight = 1;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.anchor = GridBagConstraints.BASELINE_LEADING;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.insets = new Insets(5, 10, 0, 0);
+		mainPanel.add(this.c_newPasswd, gbc);
+		
+		// Valider (Button)
+		gbc.gridx = 0;
+		gbc.gridy = 5;
+		gbc.gridheight = 1;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.anchor = GridBagConstraints.BASELINE_LEADING;
+		gbc.insets = new Insets(15, 10, 0, 0);
+		mainPanel.add(this.validerBut, gbc);
+		
+        // Retour (Button)
+		gbc.gridx = 0;
+		gbc.gridy = 6;
+		gbc.gridheight = 1;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.anchor = GridBagConstraints.BASELINE;
+		gbc.fill = GridBagConstraints.NONE;
+		gbc.insets = new Insets(10, 10, 0, 10);
+		mainPanel.add(this.retourBut, gbc);
 		
 		return mainPanel;
 	}
@@ -145,15 +241,10 @@ public class ModifInfosPerso extends JPanel implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent event) {
-		switch (event.getActionCommand()) {
-		case "Valider les modifications":
+		Object evt = event.getSource();
+		if(evt.equals(this.validerBut))
 			this.setPassword();
-			break;
-		case "Retour":
+		if(evt.equals(this.retourBut))
 			this.fenetre.setActivePanel(new Accueil(this.fenetre,this.comptable).launchPanel());
-			break;
-		default:
-			break;
-		}
 	}
 }
