@@ -221,7 +221,7 @@ public class DetailFrais extends JPanel implements ActionListener {
         gbc.weighty = 1;
         
         //Validation de la fiche (Button)
-        if(this.ficheFrais.getIdEtat().equalsIgnoreCase("CL")) {
+        if(this.ficheFrais.getIdEtat().equalsIgnoreCase("VA")) {
 	        gbc.gridx = 0;
 			gbc.gridy = GridBagConstraints.RELATIVE;
 			gbc.gridheight = 1;
@@ -233,14 +233,14 @@ public class DetailFrais extends JPanel implements ActionListener {
         }
         
         // Mise en paiement (Button)
-        if(this.ficheFrais.getIdEtat().equalsIgnoreCase("RB")) {
+        if(this.ficheFrais.getIdEtat().equalsIgnoreCase("CL")) {
 	        gbc.gridx = 0;
 			gbc.gridy = GridBagConstraints.RELATIVE;
 			gbc.gridheight = 1;
 			gbc.gridwidth = GridBagConstraints.REMAINDER;
 			gbc.anchor = GridBagConstraints.BASELINE;
 			gbc.fill = GridBagConstraints.NONE;
-			gbc.insets = new Insets(0, 10, 0, 10);
+			gbc.insets = new Insets(15, 10, 0, 0);
 			mainPanel.add(this.mepBut, gbc);
         }
         
@@ -312,7 +312,7 @@ public class DetailFrais extends JPanel implements ActionListener {
 		for(final FraisHorsForfaitCtrl fraisHorsForfait : this.ficheFrais.getListeFraisHorsForfait()) {		
 			
 			JLabel libelleLabel = new JLabel(fraisHorsForfait.getLibelle());
-			JLabel dateLabel = new JLabel("Le : " + fraisHorsForfait.getDate());
+			JLabel dateLabel = new JLabel("le : " + fraisHorsForfait.getDate());
 			JLabel montantLabel = new JLabel(fraisHorsForfait.getMontant() + " €");
 			
 			if(fraisHorsForfait.getEtat() == 0) {
@@ -411,7 +411,7 @@ public class DetailFrais extends JPanel implements ActionListener {
 			int reply = JOptionPane.showConfirmDialog(null, "Etes vous sûr de vouloir mettre cette fiche de frais en remboursement ?", "AppliFrais - Comptable",  JOptionPane.YES_NO_OPTION);
 			if(reply == JOptionPane.YES_OPTION) {
 				this.ficheFrais.modifierEtatFiche("RB");
-				JOptionPane.showMessageDialog(null,"La fiche de frais a bien été mise en remboursement.\n Vous allez être redirigé vers l'écran précédent dans quelques instants.","AppliFrais - Comptable",JOptionPane.INFORMATION_MESSAGE, icon);
+				JOptionPane.showMessageDialog(null,"La fiche de frais a bien été mise en remboursement.\nVous allez être redirigé vers l'écran précédent dans quelques instants.","AppliFrais - Comptable",JOptionPane.INFORMATION_MESSAGE, icon);
 				try{
 					Thread.sleep(500);
 				}catch(InterruptedException e){
@@ -422,10 +422,10 @@ public class DetailFrais extends JPanel implements ActionListener {
 		}
 		else if(evt.equals(this.mepBut)) {
 			final ImageIcon icon = new ImageIcon("img/gsb.png");
-			int reply = JOptionPane.showConfirmDialog(null, "Etes vous sûr de vouloir mettre cette fiche de frais en remboursement ?", "AppliFrais - Comptable",  JOptionPane.YES_NO_OPTION);
+			int reply = JOptionPane.showConfirmDialog(null, "Etes vous sûr de vouloir mettre cette fiche de frais en paiement ?", "AppliFrais - Comptable",  JOptionPane.YES_NO_OPTION);
 			if(reply == JOptionPane.YES_OPTION) {
 				this.ficheFrais.modifierEtatFiche("VA");
-				JOptionPane.showMessageDialog(null,"La fiche de frais a bien été mise en paiement.\n Vous allez être redirigé vers l'écran précédent dans quelques instants.","AppliFrais - Comptable",JOptionPane.INFORMATION_MESSAGE, icon);
+				JOptionPane.showMessageDialog(null,"La fiche de frais a bien été mise en paiement.\nVous allez être redirigé vers l'écran précédent dans quelques instants.","AppliFrais - Comptable",JOptionPane.INFORMATION_MESSAGE, icon);
 				try{
 					Thread.sleep(500);
 				}catch(InterruptedException e){
