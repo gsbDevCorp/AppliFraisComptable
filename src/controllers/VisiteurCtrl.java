@@ -217,7 +217,7 @@ public class VisiteurCtrl {
 	//-- Méthodes
 	
 	/**
-	 * Chargement de l'ensemble des fiches de frais du visiteur
+	 * Chargement de l'ensemble des fiches de frais du visiteur depuis la base de données
 	 * 
 	 * @return ArrayList<FicheFraisCtrl>
 	 */
