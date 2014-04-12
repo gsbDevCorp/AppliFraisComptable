@@ -136,7 +136,7 @@ public class FraisHorsForfaitCtrl {
 	 * <li>1 = validée</li>
 	 * </ul>
 	 * 
-	 * @param montant int
+	 * @param etat int
 	 */
 	public void setEtat(int etat) {
 		FraisHorsForfaitMdl.modifierEtat(this.id, etat);

@@ -201,7 +201,7 @@ public class FicheFraisCtrl {
 		/**
 		 * Modification de la liste de frais hors forfait
 		 * 
-		 * @param listeFraisForfait ArrayList<FraisHorsForfaitCtrl>
+		 * @param listeFraisHorsForfait ArrayList<FraisHorsForfaitCtrl>
 		 */
 		public void setListeFraisHorsForfait(ArrayList<FraisHorsForfaitCtrl> listeFraisHorsForfait) {
 			this.listeFraisHorsForfait = listeFraisHorsForfait;

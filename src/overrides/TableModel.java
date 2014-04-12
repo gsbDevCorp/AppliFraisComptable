@@ -106,7 +106,8 @@ public class TableModel extends AbstractTableModel {
 	/**
 	 * Récupération du visiteur actif sur le tableau<br>
 	 * Permet de s'assurer du visiteur récupéré
-	 * @return
+	 * 
+	 * @return VisiteurCtrl
 	 */
 	public VisiteurCtrl getVisiteurActif() {
 		return this.visiteur;

@@ -85,7 +85,7 @@ public class TypeFraisCtrl {
 	/**
 	 * Modifie le montant du type de frais
 	 * 
-	 * @param double
+	 * @param montant double
 	 */
 	public void setMontant(double montant) {
 		this.montant = montant;
