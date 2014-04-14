@@ -10,7 +10,7 @@ import org.junit.Test;
 /**
  * Classe de test du contrôleur <code>FicheFraisCtrl</code><br>
  * Test JUnit 4<br>
- * Les Getters et Setters ne sont pas pris en charge dans les tests.
+ * Les Getters et Setters ne sont pas pris en charge dans la série de tests.
  * 
  * @author Robin BILLY - SIO2
  * @version 1.0.0
@@ -19,20 +19,31 @@ import org.junit.Test;
 public class FicheFraisCtrlTest {
 
 	//-- Attributs
-	private FicheFraisCtrl ficheFrais;
+	private FicheFraisCtrl ficheFraisSimu, ficheFraisReel;
 	
 	//-- Méthodes de test
 	
 	/**
 	 * Méthode setUp<br>
-	 * Initialisation de la fiche de frais de test
+	 * Initialisation des fiches de frais de test
+	 * <ul>
+	 * <li>ficheFraisSimu -> fiche de frais simulée</li>
+	 * <li>ficheFraisReel -> fiche de frais réelle, utilise le cas de test visiteur inscrit en BDD :
+	 * 		<ul>
+	 * 		<li>ID -> test</li>
+	 * 		<li>Nom -> visiteurTest</li>
+	 * 		<li>Prénom -> visiteurTest</li>
+	 * 		<ul>
+	 * </li>
+	 * </ul>
 	 * 
 	 * @throws Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
 		java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
-		this.ficheFrais = new FicheFraisCtrl("a123", "CL", "201404", date, 2, 0.0);
+		this.ficheFraisSimu = new FicheFraisCtrl("a123", "CL", "201404", date, 2, 0.0);
+		this.ficheFraisReel = new FicheFraisCtrl("test", "CL", "201404", date, 4, 0.0);
 	}
 
 	/**
@@ -41,7 +52,7 @@ public class FicheFraisCtrlTest {
 	 */
 	@Test
 	public void testFicheFraisCtrl() {
-		assertNotNull("Erreur à l'instanciation de l'objet FicheFraisCtrl", this.ficheFrais);
+		assertNotNull("Erreur à l'instanciation de l'objet FicheFraisCtrl", this.ficheFraisSimu);
 	}
 
 	/**
@@ -60,17 +71,15 @@ public class FicheFraisCtrlTest {
 	 */
 	@Test
 	public void testLoadListeFraisForfaits() {
-		this.ficheFrais.loadListeFraisForfaits();
-		assertEquals("Erreur sur le nombre de frais forfait retournés", 0, this.ficheFrais.getListeFraisForfait().size());
+		this.ficheFraisSimu.loadListeFraisForfaits();
+		assertEquals("Erreur sur le nombre de frais forfait retournés", 0, this.ficheFraisSimu.getListeFraisForfait().size());
 		
 		/*
-		 * Instanciation d'une fiche de frais pour un visiteur réel (a131)
+		 * Test sur le cas de test visiteur réel (ID -> test)
 		 * Le test ne se fait pas sur le nombre exact de frais forfait retournés celui-ci pouvant être ammené à évoluer.
 		 */
-		java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
-		FicheFraisCtrl ficheFraisReelle = new FicheFraisCtrl("a131", "RB", "201001", date, 5, 0.0);
-		ficheFraisReelle.loadListeFraisForfaits();
-		assertTrue("Erreur sur le nombre de frais forfait retournés", ficheFraisReelle.getListeFraisForfait().size() > 0);
+		this.ficheFraisReel.loadListeFraisForfaits();
+		assertTrue("Erreur sur le nombre de frais forfait retournés", this.ficheFraisReel.getListeFraisForfait().size() > 0);
 	}
 
 	/**
@@ -89,22 +98,27 @@ public class FicheFraisCtrlTest {
 	 */
 	@Test
 	public void testLoadListeFraisHorsForfaits() {
-		this.ficheFrais.loadListeFraisHorsForfaits();
-		assertEquals("Erreur sur le nombre de frais hors forfait retournés", 0, this.ficheFrais.getListeFraisHorsForfait().size());
+		this.ficheFraisSimu.loadListeFraisHorsForfaits();
+		assertEquals("Erreur sur le nombre de frais hors forfait retournés", 0, this.ficheFraisSimu.getListeFraisHorsForfait().size());
 		
 		/*
-		 * Instanciation d'une fiche de frais pour un visiteur réel (a131)
+		 * Test sur le cas de test visiteur réel (ID -> test)
 		 * Le test ne se fait pas sur le nombre exact de frais retournés celui-ci pouvant être ammené à évoluer.
 		 */
-		java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
-		FicheFraisCtrl ficheFraisReelle = new FicheFraisCtrl("a131", "RB", "201001", date, 5, 0.0);
-		ficheFraisReelle.loadListeFraisHorsForfaits();
-		assertTrue("Erreur sur le nombre de frais hors forfait retournés", ficheFraisReelle.getListeFraisHorsForfait().size() > 0);
+		this.ficheFraisReel.loadListeFraisHorsForfaits();
+		assertTrue("Erreur sur le nombre de frais hors forfait retournés", this.ficheFraisReel.getListeFraisHorsForfait().size() > 0);
 	}
 
+	/**
+	 * Test de la modification d'état du libellé<br>
+	 * Le test se fait sur l'une des fiches de frais du visiteur de test inscrit en BDD (ID -> test)<br>
+	 * La vérification se fait sur le getIdEtat
+	 */
 	@Test
 	public void testModifierEtatFiche() {
-		fail("Not yet implemented");
+		assertEquals("Erreur : Le code de la fiche de frais devrait être 'CL'", "CL", this.ficheFraisReel.getIdEtat());
+		this.ficheFraisReel.modifierEtatFiche("VA");
+		assertEquals("Erreur à la modification de l'état de la fiche de frais", "VA", this.ficheFraisReel.getIdEtat());
 	}
 
 	/**
@@ -114,12 +128,36 @@ public class FicheFraisCtrlTest {
 	 */
 	@Test
 	public void testGetMoisFormate() {
-		assertEquals("Le format du mois retourné est invalide", "2014 - 04", this.ficheFrais.getMoisFormate());
+		assertEquals("Le format du mois retourné est invalide", "2014 - 04", this.ficheFraisSimu.getMoisFormate());
 	}
 
+	/**
+	 * Test de la récupération du libellé correspondant à l'état de la fiche<br>
+	 * <ul>
+	 * <li>CL -> Saisie clôturée</li>
+	 * <li>CR -> Fiche créée, saisie en cours</li>
+	 * <li>RB -> Remboursée</li>
+	 * <li>VA -> Validée et mise en paiement</li>
+	 * <li>Code invalide -> Code d'état invalide</li>
+	 * </ul>
+	 */
 	@Test
 	public void testGetLibelleIdEtat() {
-		fail("Not yet implemented");
+		
+		//Test du code CL
+		assertEquals("Mauvais libellé retourné pour l'état 'CL'", "Saisie clôturée", FicheFraisCtrl.getLibelleIdEtat("CL"));
+		
+		//Test du code CR
+		assertEquals("Mauvais libellé retourné pour l'état 'CR'", "Fiche créée, saisie en cours", FicheFraisCtrl.getLibelleIdEtat("CR"));
+		
+		//Test du code RB
+		assertEquals("Mauvais libellé retourné pour l'état 'RB'", "Remboursée", FicheFraisCtrl.getLibelleIdEtat("RB"));
+		
+		//Test du code VA
+		assertEquals("Mauvais libellé retourné pour l'état 'VA'", "Validée et mise en paiement", FicheFraisCtrl.getLibelleIdEtat("VA"));
+		
+		//Test d'un code invalide
+		assertEquals("Mauvais libellé retourné pour l'état invalide", "Code d'état invalide", FicheFraisCtrl.getLibelleIdEtat("INV"));
 	}
 
 }

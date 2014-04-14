@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import models.FraisForfaitMdl;
 
 /**
- * ---------------------------------
+ * 
  * Gestion des frais forfait
- * ---------------------------------
+ * 
  * 
  * @author Robin BILLY - SIO2
  * @version 1.0.0

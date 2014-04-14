@@ -225,7 +225,9 @@ public class FicheFraisCtrl {
 		
 		/**
 		 * Appel à la modification de la fiche de frais vers un nouvel etat<br>
-		 * Les traitements sont effectués sur le modèle.
+		 * Les traitements sont effectués sur le modèle.<br>
+		 * Pour éviter toute erreur entre la validation et le remboursement,
+		 * la modification du montant est autorisée uniquement lors de la validation de la fiche.
 		 * 
 		 * @param nouvelEtat String
 		 */
@@ -242,6 +244,7 @@ public class FicheFraisCtrl {
 				this.setMontantValide(montant);
 			}
 			FicheFraisMdl.modifierEtatFiche(this.idVisiteur, this.mois, nouvelEtat, this.getMontantValide());
+			this.setIdEtat(nouvelEtat);
 		}
 		
 		/**
@@ -262,13 +265,16 @@ public class FicheFraisCtrl {
 		 * @return String
 		 */
 		public static String getLibelleIdEtat(String idEtat) {
+			/*
+			 * TODO Créer un objet Etat pour éviter le code en dur
+			 */
 			String libelleEtat;
 			switch(idEtat) {
 				case "CL" : libelleEtat = "Saisie clôturée"; break;
 				case "CR" : libelleEtat = "Fiche créée, saisie en cours"; break;
 				case "RB" : libelleEtat = "Remboursée"; break;
 				case "VA" : libelleEtat = "Validée et mise en paiement"; break;
-				default : libelleEtat = "CL"; break;
+				default : libelleEtat = "Code d'état invalide"; break;
 			}
 			return libelleEtat;
 		}

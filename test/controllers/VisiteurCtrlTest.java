@@ -11,7 +11,7 @@ import org.junit.Test;
 /**
  * Classe de test du contrôleur <code>VisiteurCtrl</code><br>
  * Test JUnit 4<br>
- * Les Getters et Setters ne sont pas pris en charge dans les tests.
+ * Les Getters et Setters ne sont pas pris en charge dans la série de tests.
  * 
  * @author Robin BILLY - SIO2
  * @version 1.0.0
