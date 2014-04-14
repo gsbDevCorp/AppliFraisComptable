@@ -5,9 +5,9 @@ import java.sql.Date;
 import models.FraisHorsForfaitMdl;
 
 /**
- * ---------------------------------
+ * 
  * Gestion des frais hors forfait
- * ---------------------------------
+ * 
  * 
  * @author Robin BILLY - SIO2
  * @version 1.0.0
@@ -85,8 +85,7 @@ public class FraisHorsForfaitCtrl {
 	/**
 	 * Retourne l'état de la fiche hors forfait
 	 * <ul>
-	 * <li>NULL = non traité</li>
-	 * <li>0 = refusée</li>
+	 * <li>NULL | 0 = refusée</li>
 	 * <li>1 = validée</li>
 	 * </ul>
 	 * 
@@ -131,8 +130,7 @@ public class FraisHorsForfaitCtrl {
 	 * Modification de l'état de la fiche hors forfait<br>
 	 * Par souci d'intégrité, la modification est également effectuée en base de données<br>
 	 * <ul>
-	 * <li>NULL = non traité</li>
-	 * <li>0 = refusée</li>
+	 * <li>NULL | 0 = refusée</li>
 	 * <li>1 = validée</li>
 	 * </ul>
 	 * 
