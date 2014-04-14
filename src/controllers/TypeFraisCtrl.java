@@ -1,7 +1,8 @@
 package controllers;
 
 /**
- * Définition des types de frais pouvant exister.<br>
+ * Définition des types de frais pouvant exister<br>
+ * Les types de frais sont appliqués aux frais forfait
  * 
  * @author Robin BILLY - SIO2
  * @version 1.0.0
@@ -18,8 +19,7 @@ public class TypeFraisCtrl {
 	/**
 	 * Constructeur par défaut
 	 */
-	public TypeFraisCtrl() {
-		
+	public TypeFraisCtrl() {	
 	}
 	
 	/**

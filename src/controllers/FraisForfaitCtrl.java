@@ -1,13 +1,10 @@
 package controllers;
 
-import java.sql.*;
-import java.util.ArrayList;
-
-import models.FraisForfaitMdl;
-
 /**
  * 
- * Gestion des frais forfait
+ * Gestion des frais forfait<br>
+ * Les frais forfait sont automatiquement validés, ils ne disposent donc pas
+ * d'état modifiable par les comptables.
  * 
  * 
  * @author Robin BILLY - SIO2
@@ -26,7 +23,6 @@ public class FraisForfaitCtrl {
 	 * Constructeur FraisForfaitCtrl par défaut
 	 */
 	public FraisForfaitCtrl() {
-
 	}
 	
 	/**

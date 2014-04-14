@@ -1,10 +1,8 @@
 package controllers;
 
-import java.sql.*;
 import java.util.ArrayList;
 
 import models.FicheFraisMdl;
-import models.FraisForfaitMdl;
 
 /**
  * 
@@ -29,8 +27,7 @@ public class VisiteurCtrl {
 	/**
 	 * Constructeur VisiteurCtrl sans paramètres
 	 */
-	public VisiteurCtrl() {
-		
+	public VisiteurCtrl() {	
 	}
 	
 	/**
@@ -41,9 +38,9 @@ public class VisiteurCtrl {
 	 * @param prenom String
 	 */
 	public VisiteurCtrl(String id, String nom, String prenom) {
-		this.setId(id);
-		this.setNom(nom);
-		this.setPrenom(prenom);
+		this.id = id;
+		this.nom = nom;
+		this.prenom = prenom;
 		this.listeFicheFrais = new ArrayList<FicheFraisCtrl>();
 	}
 

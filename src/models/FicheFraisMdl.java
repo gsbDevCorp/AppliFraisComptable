@@ -1,10 +1,7 @@
 package models;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 import java.util.logging.*;
 
 import controllers.FicheFraisCtrl;
@@ -12,7 +9,6 @@ import controllers.FicheFraisCtrl;
 /**
  * 
  * Gestion des accès à la BDD pour traitement des informations sur les fiches de frais
- * 
  * 
  * @author Robin BILLY - SIO2
  * @version 1.0.0

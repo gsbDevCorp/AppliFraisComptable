@@ -1,17 +1,14 @@
 package models;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.logging.*;
 
 import controllers.ComptableCtrl;
 
 /**
- * ---------------------------------
- * Gestion des accès à la BDD pour
- * traitement des informations sur
+ * 
+ * Gestion des accès à la BDD pour traitement des informations sur
  * les comptables
- * ---------------------------------
  * 
  * @author Robin BILLY - SIO2
  * @version 1.0.0
@@ -59,7 +56,7 @@ public class ComptableMdl {
 			ResultSet result = statement.executeQuery();
 			
 			while(result.next())
-				retourComptable = new ComptableCtrl(result.getInt("id"),result.getString("nom"),result.getString("prenom"),result.getString("adresse"),result.getString("cp"),result.getString("ville"),result.getDate("dateEmbauche"));
+				retourComptable = new ComptableCtrl(result.getInt("id"),result.getString("nom"),result.getString("prenom"));
 			
 			logTrace.info("Identifiant de comptable récupéré : " + retourComptable.getId());
 			logTrace.info("Retour du comptable");

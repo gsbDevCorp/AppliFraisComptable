@@ -4,9 +4,9 @@ import java.sql.*;
 import java.util.logging.*;
 
 /**
- * ---------------------------------
- * Gestion de la connexion à la BDD
- * ---------------------------------
+ * 
+ * Gestion de la connexion à la base de données<br>
+ * Le login et le mot de passe sont inscrits dans la classe <code>StaticBDConf</code>
  * 
  * @author Robin BILLY - SIO2
  * @version 1.0.2

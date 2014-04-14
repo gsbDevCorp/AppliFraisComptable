@@ -8,11 +8,10 @@ import controllers.FraisForfaitCtrl;
 import controllers.TypeFraisCtrl;
 
 /**
- * ---------------------------------
- * Gestion des accès à la BDD pour
- * traitement des informations sur
+ * 
+ * Gestion des accès à la BDD pour traitement des informations sur
  * les frais forfaits
- * ---------------------------------
+ * 
  * 
  * @author Robin BILLY - SIO2
  * @version 1.0.0

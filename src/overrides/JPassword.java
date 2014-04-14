@@ -4,6 +4,7 @@ import javax.swing.JPasswordField;
 
 /**
  * Extension de la classe JPasswordField
+ * Permet de récupérer les mots de passe en clair et sous forme d'objet de type String
  * 
  * @author Robin BILLY - SIO2
  * @version 1.0.0

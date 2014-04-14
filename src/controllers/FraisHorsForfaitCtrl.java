@@ -6,7 +6,9 @@ import models.FraisHorsForfaitMdl;
 
 /**
  * 
- * Gestion des frais hors forfait
+ * Gestion des frais hors forfait<br>
+ * Les frais hors forfait sont soumis à la validation des comptables<br>
+ * Leur état doit donc pouvoir changer afin de savoir si celui-ci a été validé ou invalidé
  * 
  * 
  * @author Robin BILLY - SIO2
@@ -28,7 +30,6 @@ public class FraisHorsForfaitCtrl {
 	 * Constructeur de la classe FicheHorsForfait sans paramètres
 	 */
 	public FraisHorsForfaitCtrl() {
-		
 	}
 	
 	/**
@@ -41,10 +42,10 @@ public class FraisHorsForfaitCtrl {
 	 * @param etat int
 	 */
 	public FraisHorsForfaitCtrl(int id, String libelle, Date date, double montant, int etat) {
-		this.setId(id);
-		this.setLibelle(libelle);
-		this.setDate(date);
-		this.setMontant(montant);
+		this.id = id;
+		this.libelle = libelle;
+		this.date = date;
+		this.montant = montant;
 		this.etat = etat;
 	}
 	
@@ -58,6 +59,16 @@ public class FraisHorsForfaitCtrl {
 	public int getId() {
 		return this.id;
 	}
+	
+	/**
+	 * Modification de l'id de la fiche hors forfait
+	 * 
+	 * @param id int
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	/**
 	 * Retourne le libelle de la fiche hors forfait
 	 * 
@@ -66,6 +77,16 @@ public class FraisHorsForfaitCtrl {
 	public String getLibelle() {
 		return this.libelle;
 	}
+	
+	/**
+	 * Modification du libelle de la fiche hors forfait
+	 * 
+	 * @param libelle String
+	 */
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
+	}
+	
 	/**
 	 * Retourne la date de la fiche hors forfait
 	 * 
@@ -74,6 +95,16 @@ public class FraisHorsForfaitCtrl {
 	public Date getDate() {
 		return this.date;
 	}
+	
+	/**
+	 * Modification de la date de la fiche hors forfait
+	 * 
+	 * @param date Date
+	 */
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
 	/**
 	 * Retourne le montant de la fiche hors forfait
 	 * 
@@ -82,6 +113,16 @@ public class FraisHorsForfaitCtrl {
 	public double getMontant() {
 		return this.montant;
 	}
+	
+	/**
+	 * Modification du montant de la fiche hors forfait
+	 * 
+	 * @param montant double
+	 */
+	public void setMontant(double montant) {
+		this.montant = montant;
+	}
+	
 	/**
 	 * Retourne l'état de la fiche hors forfait
 	 * <ul>
@@ -94,38 +135,7 @@ public class FraisHorsForfaitCtrl {
 	public int getEtat() {
 		return this.etat;
 	}
-	/**
-	 * Modification de l'id de la fiche hors forfait
-	 * 
-	 * @param id int
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
-	/**
-	 * Modification du libelle de la fiche hors forfait
-	 * 
-	 * @param libelle String
-	 */
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
-	}
-	/**
-	 * Modification de la date de la fiche hors forfait
-	 * 
-	 * @param date Date
-	 */
-	public void setDate(Date date) {
-		this.date = date;
-	}
-	/**
-	 * Modification du montant de la fiche hors forfait
-	 * 
-	 * @param montant double
-	 */
-	public void setMontant(double montant) {
-		this.montant = montant;
-	}
+	
 	/**
 	 * Modification de l'état de la fiche hors forfait<br>
 	 * Par souci d'intégrité, la modification est également effectuée en base de données<br>

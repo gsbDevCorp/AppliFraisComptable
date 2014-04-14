@@ -71,14 +71,14 @@ public class FicheFraisCtrlTest {
 	 */
 	@Test
 	public void testLoadListeFraisForfaits() {
-		this.ficheFraisSimu.loadListeFraisForfaits();
+		this.ficheFraisSimu.loadListeFraisForfait();
 		assertEquals("Erreur sur le nombre de frais forfait retournés", 0, this.ficheFraisSimu.getListeFraisForfait().size());
 		
 		/*
 		 * Test sur le cas de test visiteur réel (ID -> test)
 		 * Le test ne se fait pas sur le nombre exact de frais forfait retournés celui-ci pouvant être ammené à évoluer.
 		 */
-		this.ficheFraisReel.loadListeFraisForfaits();
+		this.ficheFraisReel.loadListeFraisForfait();
 		assertTrue("Erreur sur le nombre de frais forfait retournés", this.ficheFraisReel.getListeFraisForfait().size() > 0);
 	}
 
@@ -98,14 +98,14 @@ public class FicheFraisCtrlTest {
 	 */
 	@Test
 	public void testLoadListeFraisHorsForfaits() {
-		this.ficheFraisSimu.loadListeFraisHorsForfaits();
+		this.ficheFraisSimu.loadListeFraisHorsForfait();
 		assertEquals("Erreur sur le nombre de frais hors forfait retournés", 0, this.ficheFraisSimu.getListeFraisHorsForfait().size());
 		
 		/*
 		 * Test sur le cas de test visiteur réel (ID -> test)
 		 * Le test ne se fait pas sur le nombre exact de frais retournés celui-ci pouvant être ammené à évoluer.
 		 */
-		this.ficheFraisReel.loadListeFraisHorsForfaits();
+		this.ficheFraisReel.loadListeFraisHorsForfait();
 		assertTrue("Erreur sur le nombre de frais hors forfait retournés", this.ficheFraisReel.getListeFraisHorsForfait().size() > 0);
 	}
 

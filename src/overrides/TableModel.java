@@ -6,7 +6,6 @@ import javax.swing.table.AbstractTableModel;
 
 import controllers.FicheFraisCtrl;
 import controllers.VisiteurCtrl;
-import models.FraisForfaitMdl;
 
 /**
  * Surcharge de la classe AbstractTableModel

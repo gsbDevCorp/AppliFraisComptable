@@ -1,6 +1,6 @@
 package controllers;
 
-import java.sql.*;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import models.FicheFraisMdl;
@@ -8,9 +8,10 @@ import models.FraisForfaitMdl;
 import models.FraisHorsForfaitMdl;
 
 /**
- * ---------------------------------
- * Gestion des fiches de frais
- * ---------------------------------
+ * 
+ * Gestion des fiches de frais<br>
+ * Les fiches de frais sont composées d'une liste de frais forfait
+ * et d'une liste de frais hors forfait.
  * 
  * @author Robin BILLY - SIO2
  * @version 1.0.0
@@ -33,7 +34,6 @@ public class FicheFraisCtrl {
 		 * Constructeur FicheFraisCtrl sans paramètres
 		 */
 		public FicheFraisCtrl() {
-			
 		}
 		
 		/**
@@ -47,12 +47,12 @@ public class FicheFraisCtrl {
 		 * @param montantValide double
 		 */
 		public FicheFraisCtrl(String idVisiteur, String idEtat, String mois, Date dateModif, int nbJustificatifs, double montantValide) {
-			this.setIdVisiteur(idVisiteur);
-			this.setIdEtat(idEtat);
-			this.setMois(mois);
-			this.setDateModif(dateModif);
-			this.setNbJustificatifs(nbJustificatifs);
-			this.setMontantValide(montantValide);
+			this.idVisiteur = idVisiteur;
+			this.idEtat = idEtat;
+			this.mois = mois;
+			this.dateModif = dateModif;
+			this.nbJustificatifs = nbJustificatifs;
+			this.montantValide = montantValide;
 			this.listeFraisForfait = new ArrayList<FraisForfaitCtrl>();
 			this.listeFraisHorsForfait = new ArrayList<FraisHorsForfaitCtrl>();
 		}
@@ -69,69 +69,6 @@ public class FicheFraisCtrl {
 		}
 		
 		/**
-		 * Retourne le nbJustificatif
-		 * 
-		 * @return int
-		 */
-		public int getNbJustificatif() {
-			return this.nbJustificatifs;
-		}
-		
-		/**
-		 * Retourne le montantValide
-		 * 
-		 * @return double
-		 */
-		public double getMontantValide() {
-			return montantValide;
-		}
-		
-		/**
-		 * Retourne la dateModif
-		 * 
-		 * @return Date
-		 */
-		public Date getDateModif() {
-			return dateModif;
-		}
-		
-		/**
-		 * Retourne idEtat
-		 * 
-		 * @return String
-		 */
-		public String getIdEtat() {
-			return this.idEtat;
-		}
-		
-		/**
-		 * Retourne le mois
-		 * 
-		 * @return String
-		 */
-		public String getMois() {
-			return this.mois;
-		}
-		
-		/**
-		 * Retourne la liste de frais forfaits
-		 * 
-		 * @return ArrayList<FraisForfaitCtrl>
-		 */
-		public ArrayList<FraisForfaitCtrl> getListeFraisForfait() {
-			return this.listeFraisForfait;
-		}
-		
-		/**
-		 * Retourne la liste de frais hors forfaits
-		 * 
-		 * @return ArrayList<FraisHorsForfaitCtrl>
-		 */
-		public ArrayList<FraisHorsForfaitCtrl> getListeFraisHorsForfait() {
-			return this.listeFraisHorsForfait;
-		}
-		
-		/**
 		 * Modification de l'id du visiteur
 		 * 
 		 * @param idVisiteur String
@@ -139,6 +76,15 @@ public class FicheFraisCtrl {
 		 */
 		public void setIdVisiteur(String idVisiteur) {
 			this.idVisiteur = idVisiteur;
+		}
+		
+		/**
+		 * Retourne le nbJustificatif
+		 * 
+		 * @return int
+		 */
+		public int getNbJustificatif() {
+			return this.nbJustificatifs;
 		}
 		
 		/**
@@ -152,12 +98,30 @@ public class FicheFraisCtrl {
 		}
 		
 		/**
+		 * Retourne le montantValide
+		 * 
+		 * @return double
+		 */
+		public double getMontantValide() {
+			return montantValide;
+		}
+		
+		/**
 		 * Modification du MontantValide
 		 * 
 		 * @param montantValide double
 		 */
 		public void setMontantValide(double montantValide) {
 			this.montantValide = montantValide;
+		}
+		
+		/**
+		 * Retourne la dateModif
+		 * 
+		 * @return Date
+		 */
+		public Date getDateModif() {
+			return dateModif;
 		}
 		
 		/**
@@ -170,12 +134,30 @@ public class FicheFraisCtrl {
 		}
 		
 		/**
+		 * Retourne idEtat
+		 * 
+		 * @return String
+		 */
+		public String getIdEtat() {
+			return this.idEtat;
+		}
+		
+		/**
 		 * Modification de idEtat
 		 * 
 		 * @param idEtat String
 		 */
 		public void setIdEtat(String idEtat) {
 			this.idEtat = idEtat;
+		}
+		
+		/**
+		 * Retourne le mois
+		 * 
+		 * @return String
+		 */
+		public String getMois() {
+			return this.mois;
 		}
 		
 		/**
@@ -188,12 +170,30 @@ public class FicheFraisCtrl {
 		}
 		
 		/**
+		 * Retourne la liste de frais forfait
+		 * 
+		 * @return ArrayList<FraisForfaitCtrl>
+		 */
+		public ArrayList<FraisForfaitCtrl> getListeFraisForfait() {
+			return this.listeFraisForfait;
+		}
+		
+		/**
 		 * Modification de la liste de frais forfait
 		 * 
 		 * @param listeFraisForfait ArrayList<FraisForfaitCtrl>
 		 */
 		public void setListeFraisForfait(ArrayList<FraisForfaitCtrl> listeFraisForfait) {
 			this.listeFraisForfait = listeFraisForfait;
+		}
+		
+		/**
+		 * Retourne la liste de frais hors forfait
+		 * 
+		 * @return ArrayList<FraisHorsForfaitCtrl>
+		 */
+		public ArrayList<FraisHorsForfaitCtrl> getListeFraisHorsForfait() {
+			return this.listeFraisHorsForfait;
 		}
 		
 		/**
@@ -208,18 +208,18 @@ public class FicheFraisCtrl {
 		//-- Méthodes
 		
 		/**
-		 * Chargement de la liste des frais forfaits du mois
+		 * Chargement de la liste des frais forfait du mois
 		 * 
 		 */
-		public void loadListeFraisForfaits() {
+		public void loadListeFraisForfait() {
 			this.listeFraisForfait = FraisForfaitMdl.getFraisForfait(this.idVisiteur, this.getMois());
 		}
 		
 		/**
-		 * Chargement de la liste des frais hors forfaits
+		 * Chargement de la liste des frais hors forfait
 		 * 
 		 */
-		public void loadListeFraisHorsForfaits() {
+		public void loadListeFraisHorsForfait() {
 			this.listeFraisHorsForfait = FraisHorsForfaitMdl.getFraisHorsForfait(this.idVisiteur, this.getMois());
 		}
 		

@@ -66,8 +66,8 @@ public class DetailFrais extends JPanel implements ActionListener {
 		mainPanel.setBackground(new Color(141,182,205));
 		
 		//-- Chargement des frais spécifiques à la fiche de frais
-		this.ficheFrais.loadListeFraisForfaits();
-		this.ficheFrais.loadListeFraisHorsForfaits();
+		this.ficheFrais.loadListeFraisForfait();
+		this.ficheFrais.loadListeFraisHorsForfait();
 		
 		//-- Instanciation des attributs
 		this.validBut = new JButton("Valider la fiche de frais");

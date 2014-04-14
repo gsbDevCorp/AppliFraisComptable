@@ -7,11 +7,9 @@ import java.util.logging.*;
 import controllers.VisiteurCtrl;
 
 /**
- * ---------------------------------
- * Gestion des accès à la BDD pour
- * traitement des informations sur
+ * 
+ * Gestion des accès à la BDD pour traitement des informations sur
  * les visiteurs médicaux
- * ---------------------------------
  * 
  * @author Robin BILLY - SIO2
  * @version 1.0.0

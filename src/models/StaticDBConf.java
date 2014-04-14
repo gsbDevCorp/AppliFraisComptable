@@ -1,9 +1,8 @@
 package models;
 
 /**
- * ---------------------------------
- * Gestion des logs d'accès aux BDD
- * ---------------------------------
+ * 
+ * Gestion des logs d'accès à la base de données
  * 
  * @author Robin BILLY - SIO2
  * @version 1.0.0
