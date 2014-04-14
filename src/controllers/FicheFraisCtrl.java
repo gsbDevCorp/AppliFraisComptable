@@ -37,9 +37,7 @@ public class FicheFraisCtrl {
 		}
 		
 		/**
-		 * Constructeur FicheFraisCtrl avec paramètres 
-		 * Charge automatiquement les lignes de frais forfait
-		 * Charge automatiquement les lignes de frais hors forfait
+		 * Constructeur FicheFraisCtrl avec paramètres
 		 * 
 		 * @param idVisiteur String
 		 * @param idEtat String

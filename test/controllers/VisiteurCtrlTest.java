@@ -9,8 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Classe de test du controller VisiteurCtrl<br>
- * Test JUnit 4
+ * Classe de test du contrôleur <code>VisiteurCtrl</code><br>
+ * Test JUnit 4<br>
+ * Les Getters et Setters ne sont pas pris en charge dans les tests.
  * 
  * @author Robin BILLY - SIO2
  * @version 1.0.0
@@ -36,19 +37,24 @@ public class VisiteurCtrlTest {
 
 	/**
 	 * Test de l'instanciation pour le constructeur<br>
-	 * VisiteurCtrl(String id, String nom, String prenom)
+	 * <code>VisiteurCtrl(String id, String nom, String prenom)</code>
 	 */
 	@Test
 	public void testVisiteurCtrl() {
-		assertNotNull("Erreur d'instanciation du visiteur",this.visiteur);
+		assertNotNull("Erreur à l'instanciation de l'objet VisiteurCtrl",this.visiteur);
 	}
 
 	/**
 	 * Test du chargement des fiches depuis la base de données<br>
-	 * Deux cas :
+	 * <b>Deux cas :</b>
 	 * <ul>
-	 * <li>Visiteur virtuel :<lu><li>Aucune fiche ne doit être retournée</li></ul></li>
-	 * <li>Visiteur réel :<lu><li>Plusieurs fiches doivent être retournées</li></ul></li>
+	 * <li>Visiteur virtuel :<ul><li>Aucune fiche ne doit être retournée</li></ul></li>
+	 * <li>Visiteur réel :
+	 * 		<ul>
+	 * 		<li>Plusieurs fiches doivent être retournées</li>
+	 * 		<li>Attention : Le test ne se fait pas sur un nombre exact de fiches celui-ci étant ammené à évoluer</li>
+	 * 		</ul
+	 * ></li>
 	 * </ul>
 	 */
 	@Test
@@ -57,8 +63,7 @@ public class VisiteurCtrlTest {
 		
 		/* 
 		 * Visiteur réel (identifiant a17)
-		 * Attention  : le test ne se fait pas sur un nombre précis de fiches de frais
-		 * afin de garder le test valide en cas de saisie de nouvelles fiches
+		 * Attention : On ne test pas le nombre exact de fiches retournées celui-ci étant ammené à évoluer
 		 */
 		VisiteurCtrl visiteurReel = new VisiteurCtrl("a17", "Andre", "David");
 		assertTrue("Erreur sur le nombre de fiches retournées", visiteurReel.loadFichesFrais().size() > 0);
