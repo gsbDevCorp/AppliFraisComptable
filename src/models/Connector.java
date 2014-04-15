@@ -88,9 +88,9 @@ public class Connector {
 	 */
 	public void closeConnection() {
 		logTrace.setLevel(Level.WARNING);
-		if (this.connect != null) {
+		if (Connector.connect != null) {
 			try {
-				this.connect.close();
+				Connector.connect.close();
 				logTrace.info("Fermeture des flux de connexion à " + dbName + " effectuée");
 			}
 			catch (SQLException e) {

@@ -1,10 +1,8 @@
 package views;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 
 import controllers.ComptableCtrl;
-import models.ComptableMdl;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -22,6 +20,10 @@ import java.util.Locale;
  */
 public class Accueil extends JPanel implements ActionListener {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8618606388037551200L;
 	//-- Attributs
 	private JButton gererFraisBut, infosPersoBut, deconnexionBut;
 	private JLabel comptableLabel, dateLabel, accueilLabel;
@@ -133,6 +135,7 @@ public class Accueil extends JPanel implements ActionListener {
 		return mainPanel;
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent event) {
 		switch (event.getActionCommand()) {
 		case "Gérer les fiches de frais":

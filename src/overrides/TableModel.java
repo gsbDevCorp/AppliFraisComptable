@@ -17,6 +17,10 @@ import controllers.VisiteurCtrl;
  */
 public class TableModel extends AbstractTableModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6183009646064274318L;
 	private String[] columnNames = {"Visiteur","Mois","Etat","Montant validé","Nombre de justificatifs"};
 	private ArrayList<FicheFraisCtrl> listeFicheFrais;
 	private VisiteurCtrl visiteur;

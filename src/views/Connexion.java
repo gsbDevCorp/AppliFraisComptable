@@ -1,7 +1,6 @@
 package views;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 
 import overrides.JPassword;
 import controllers.ComptableCtrl;
@@ -20,6 +19,10 @@ import java.awt.event.*;
  */
 public class Connexion extends JPanel implements ActionListener {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8708924523414443376L;
 	//-- Attributs
 	private JTextField loginText;
 	private JPassword passwordText;
@@ -132,6 +135,7 @@ public class Connexion extends JPanel implements ActionListener {
 		}
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent event) {
 		switch (event.getActionCommand()) {
 		case "Connexion":

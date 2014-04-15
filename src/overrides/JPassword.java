@@ -13,6 +13,11 @@ import javax.swing.JPasswordField;
 public class JPassword extends JPasswordField {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2529482577454677751L;
+
+	/**
 	 * Surcharge du constructeur par défaut
 	 */
 	public JPassword() {

@@ -161,6 +161,7 @@ public class VisiteurCtrl {
 	 * 
 	 * @return String
 	 */
+	@Override
 	public String toString() {
 		return this.getNom() + " " + this.getPrenom();
 	}

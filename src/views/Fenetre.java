@@ -15,11 +15,16 @@ import javax.swing.*;
  */
 public class Fenetre extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6364306074999260900L;
+
 	public Fenetre() {
 		//-- Définition de la fenêtre de base
 		this.setTitle("AppliFrais - Comptable");
 		this.setIconImage(new ImageIcon("img/gsb.png").getImage());
-		this.setExtendedState(this.MAXIMIZED_BOTH);
+		this.setExtendedState(Frame.MAXIMIZED_BOTH);
 		//this.setSize(1000, 650);
 		this.setMinimumSize(new Dimension(1000, 650));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

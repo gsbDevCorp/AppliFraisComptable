@@ -1,7 +1,6 @@
 package views;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 
 import overrides.*;
 import controllers.*;
@@ -24,6 +23,10 @@ import java.util.Locale;
  */
 public class OverviewFrais extends JPanel implements ActionListener, MouseListener {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4276243847095381073L;
 	//-- Attributs
 	private JButton validerChoixBut, retourBut, deconnexionBut;
 	private JLabel comptableLabel, dateLabel, categorieLabel;
@@ -205,6 +208,7 @@ public class OverviewFrais extends JPanel implements ActionListener, MouseListen
         return mainPanel;
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent event) {
 		Object evt = event.getSource();
 		if(evt.equals(this.validerChoixBut)) {

@@ -1,16 +1,12 @@
 package views;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,15 +14,10 @@ import java.util.Locale;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
-import models.VisiteurMdl;
-import overrides.TableModel;
 import controllers.ComptableCtrl;
 import controllers.FicheFraisCtrl;
 import controllers.FraisForfaitCtrl;
@@ -35,6 +26,10 @@ import controllers.VisiteurCtrl;
 
 public class DetailFrais extends JPanel implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3218626651485517266L;
 	//-- Attributs
 	private JButton validBut, mepBut, retourBut, deconnexionBut;
 	private JLabel comptableLabel, dateLabel, categorieLabel;
@@ -330,6 +325,7 @@ public class DetailFrais extends JPanel implements ActionListener {
 			JButton refFraisBut = new JButton("Refuser");
 			
 			valFraisBut.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent event) {
 					fraisHorsForfait.setEtat(1);
 					final ImageIcon icon = new ImageIcon("img/gsb.png");
@@ -339,6 +335,7 @@ public class DetailFrais extends JPanel implements ActionListener {
 			});
 			
 			refFraisBut.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent event) {
 					fraisHorsForfait.setEtat(0);
 					final ImageIcon icon = new ImageIcon("img/gsb.png");

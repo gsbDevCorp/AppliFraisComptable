@@ -1,12 +1,9 @@
 package views;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 
 import models.ComptableMdl;
-
 import overrides.JPassword;
-
 import controllers.ComptableCtrl;
 
 import java.awt.*;
@@ -25,6 +22,10 @@ import java.util.Locale;
  */
 public class ModifInfosPerso extends JPanel implements ActionListener {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3752300838132144956L;
 	//-- Attributs
 	private JButton validerBut, retourBut, deconnexionBut;
 	private JLabel comptableLabel, dateLabel, accueilLabel;
@@ -240,6 +241,7 @@ public class ModifInfosPerso extends JPanel implements ActionListener {
 		}
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent event) {
 		Object evt = event.getSource();
 		if(evt.equals(this.validerBut))
