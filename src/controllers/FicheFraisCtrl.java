@@ -14,14 +14,15 @@ import models.FraisHorsForfaitMdl;
  * et d'une liste de frais hors forfait.
  * 
  * @author Robin BILLY - SIO2
- * @version 1.0.0
+ * @version 1.1.0
  *
  */
 public class FicheFraisCtrl {
 
 	//-- Attributs
 	
-		private String idVisiteur, idEtat, mois;
+		private String idVisiteur, mois;
+		private EtatCtrl etat;
 		private Date dateModif;
 		private int nbJustificatifs;
 		private double montantValide;
@@ -40,15 +41,15 @@ public class FicheFraisCtrl {
 		 * Constructeur FicheFraisCtrl avec paramètres
 		 * 
 		 * @param idVisiteur String
-		 * @param idEtat String
+		 * @param etat EtatCtrl
 		 * @param mois String
 		 * @param dateModif Date
 		 * @param nbJustificatifs int
 		 * @param montantValide double
 		 */
-		public FicheFraisCtrl(String idVisiteur, String idEtat, String mois, Date dateModif, int nbJustificatifs, double montantValide) {
+		public FicheFraisCtrl(String idVisiteur, EtatCtrl etat, String mois, Date dateModif, int nbJustificatifs, double montantValide) {
 			this.idVisiteur = idVisiteur;
-			this.idEtat = idEtat;
+			this.etat = etat;
 			this.mois = mois;
 			this.dateModif = dateModif;
 			this.nbJustificatifs = nbJustificatifs;
@@ -134,21 +135,23 @@ public class FicheFraisCtrl {
 		}
 		
 		/**
-		 * Retourne idEtat
+		 * Retourne l'objet EtatCtrl précisant l'état
+		 * de la fiche de frais
 		 * 
-		 * @return String
+		 * @return EtatCtrl
 		 */
-		public String getIdEtat() {
-			return this.idEtat;
+		public EtatCtrl getEtat() {
+			return this.etat;
 		}
 		
 		/**
-		 * Modification de idEtat
+		 * Modification l'objet EtatCtrl précisant l'état
+		 * de la fiche de frais
 		 * 
-		 * @param idEtat String
+		 * @param etat EtatCtrl
 		 */
-		public void setIdEtat(String idEtat) {
-			this.idEtat = idEtat;
+		public void setEtat(EtatCtrl etat) {
+			this.etat = etat;
 		}
 		
 		/**
@@ -229,10 +232,10 @@ public class FicheFraisCtrl {
 		 * Pour éviter toute erreur entre la validation et le remboursement,
 		 * la modification du montant est autorisée uniquement lors de la validation de la fiche.
 		 * 
-		 * @param nouvelEtat String
+		 * @param nouvelEtat EtatCtrl
 		 */
-		public void modifierEtatFiche(String nouvelEtat) {
-			if(nouvelEtat.equalsIgnoreCase("VA")) {
+		public void modifierEtatFiche(EtatCtrl nouvelEtat) {
+			if(nouvelEtat.getId().equalsIgnoreCase("VA")) {
 				double montant = 0;
 				for(FraisForfaitCtrl fraisForfait : this.getListeFraisForfait()) {
 					montant += fraisForfait.getQuantite()*fraisForfait.getTypeFrais().getMontant();
@@ -243,8 +246,8 @@ public class FicheFraisCtrl {
 				}
 				this.setMontantValide(montant);
 			}
-			FicheFraisMdl.modifierEtatFiche(this.idVisiteur, this.mois, nouvelEtat, this.getMontantValide());
-			this.setIdEtat(nouvelEtat);
+			FicheFraisMdl.modifierEtatFiche(this.idVisiteur, this.mois, nouvelEtat.getId(), this.getMontantValide());
+			this.setEtat(nouvelEtat);
 		}
 		
 		/**
@@ -264,10 +267,8 @@ public class FicheFraisCtrl {
 		 * @param idEtat String
 		 * @return String
 		 */
+		@Deprecated
 		public static String getLibelleIdEtat(String idEtat) {
-			/*
-			 * TODO Créer un objet Etat pour éviter le code en dur
-			 */
 			String libelleEtat;
 			switch(idEtat) {
 				case "CL" : libelleEtat = "Saisie clôturée"; break;

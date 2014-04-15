@@ -149,7 +149,7 @@ public class VisiteurCtrl {
 		ArrayList<FicheFraisCtrl> listeRetour = new ArrayList<FicheFraisCtrl>();
 		
 		for(FicheFraisCtrl ficheFrais : this.getListeFicheFrais())
-			if(ficheFrais.getIdEtat().equalsIgnoreCase(etat))
+			if(ficheFrais.getEtat().getId().equalsIgnoreCase(etat))
 				listeRetour.add(ficheFrais);
 		
 		return listeRetour;

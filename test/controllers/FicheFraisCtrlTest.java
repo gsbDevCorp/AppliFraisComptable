@@ -40,8 +40,9 @@ public class FicheFraisCtrlTest {
 	@Before
 	public void setUp() throws Exception {
 		java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
-		this.ficheFraisSimu = new FicheFraisCtrl("a123", "CL", "201404", date, 2, 0.0);
-		this.ficheFraisReel = new FicheFraisCtrl("test", "CL", "201404", date, 4, 0.0);
+		EtatCtrl etat = new EtatCtrl("CL", "saisie clôturée");
+		this.ficheFraisSimu = new FicheFraisCtrl("a123", etat, "201404", date, 2, 0.0);
+		this.ficheFraisReel = new FicheFraisCtrl("test", etat, "201404", date, 4, 0.0);
 	}
 
 	/**
@@ -114,9 +115,9 @@ public class FicheFraisCtrlTest {
 	 */
 	@Test
 	public void testModifierEtatFiche() {
-		assertEquals("Erreur : Le code de la fiche de frais devrait être 'CL'", "CL", this.ficheFraisReel.getIdEtat());
-		this.ficheFraisReel.modifierEtatFiche("VA");
-		assertEquals("Erreur à la modification de l'état de la fiche de frais", "VA", this.ficheFraisReel.getIdEtat());
+		assertEquals("Erreur : Le code de la fiche de frais devrait être 'CL'", "CL", this.ficheFraisReel.getEtat().getId());
+		this.ficheFraisReel.modifierEtatFiche(new EtatCtrl("VA", "Validée et mise en paiement"));
+		assertEquals("Erreur à la modification de l'état de la fiche de frais", "VA", this.ficheFraisReel.getEtat().getId());
 	}
 
 	/**
@@ -128,34 +129,4 @@ public class FicheFraisCtrlTest {
 	public void testGetMoisFormate() {
 		assertEquals("Le format du mois retourné est invalide", "2014 - 04", this.ficheFraisSimu.getMoisFormate());
 	}
-
-	/**
-	 * Test de la récupération du libellé correspondant à l'état de la fiche<br>
-	 * <ul>
-	 * <li>CL -> Saisie clôturée</li>
-	 * <li>CR -> Fiche créée, saisie en cours</li>
-	 * <li>RB -> Remboursée</li>
-	 * <li>VA -> Validée et mise en paiement</li>
-	 * <li>Code invalide -> Code d'état invalide</li>
-	 * </ul>
-	 */
-	@Test
-	public void testGetLibelleIdEtat() {
-		
-		//Test du code CL
-		assertEquals("Mauvais libellé retourné pour l'état 'CL'", "Saisie clôturée", FicheFraisCtrl.getLibelleIdEtat("CL"));
-		
-		//Test du code CR
-		assertEquals("Mauvais libellé retourné pour l'état 'CR'", "Fiche créée, saisie en cours", FicheFraisCtrl.getLibelleIdEtat("CR"));
-		
-		//Test du code RB
-		assertEquals("Mauvais libellé retourné pour l'état 'RB'", "Remboursée", FicheFraisCtrl.getLibelleIdEtat("RB"));
-		
-		//Test du code VA
-		assertEquals("Mauvais libellé retourné pour l'état 'VA'", "Validée et mise en paiement", FicheFraisCtrl.getLibelleIdEtat("VA"));
-		
-		//Test d'un code invalide
-		assertEquals("Mauvais libellé retourné pour l'état invalide", "Code d'état invalide", FicheFraisCtrl.getLibelleIdEtat("INV"));
-	}
-
 }

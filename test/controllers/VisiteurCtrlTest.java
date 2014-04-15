@@ -78,18 +78,25 @@ public class VisiteurCtrlTest {
 	 */
 	@Test
 	public void testGetFichesFraisEtat() {
+		
 		java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
-		FicheFraisCtrl fiche1 = new FicheFraisCtrl(this.visiteur.getId(), "CL", "201401", date, 2, 0.0);
-		FicheFraisCtrl fiche2 = new FicheFraisCtrl(this.visiteur.getId(), "CL", "201402", date, 2, 34.54);
-		FicheFraisCtrl fiche3 = new FicheFraisCtrl(this.visiteur.getId(), "RB", "201403", date, 2, 12.0);
-		FicheFraisCtrl fiche4 = new FicheFraisCtrl(this.visiteur.getId(), "VA", "201404", date, 2, 124.0);
-		FicheFraisCtrl fiche5 = new FicheFraisCtrl(this.visiteur.getId(), "RB", "201405", date, 2, 316.47);
+		EtatCtrl etatCL = new EtatCtrl("CL", "Saisie clôturée");
+		EtatCtrl etatRB = new EtatCtrl("RB", "Remboursée");
+		EtatCtrl etatVA = new EtatCtrl("VA", "Validée et mise en paiement");
+		
+		FicheFraisCtrl fiche1 = new FicheFraisCtrl(this.visiteur.getId(), etatCL, "201401", date, 2, 0.0);
+		FicheFraisCtrl fiche2 = new FicheFraisCtrl(this.visiteur.getId(), etatCL, "201402", date, 2, 34.54);
+		FicheFraisCtrl fiche3 = new FicheFraisCtrl(this.visiteur.getId(), etatRB, "201403", date, 2, 12.0);
+		FicheFraisCtrl fiche4 = new FicheFraisCtrl(this.visiteur.getId(), etatVA, "201404", date, 2, 124.0);
+		FicheFraisCtrl fiche5 = new FicheFraisCtrl(this.visiteur.getId(), etatRB, "201405", date, 2, 316.47);
+		
 		ArrayList<FicheFraisCtrl> listeFicheFrais = new ArrayList<FicheFraisCtrl>();
 		listeFicheFrais.add(fiche1);
 		listeFicheFrais.add(fiche2);
 		listeFicheFrais.add(fiche3);
 		listeFicheFrais.add(fiche4);
 		listeFicheFrais.add(fiche5);
+		
 		this.visiteur.setListeFicheFrais(listeFicheFrais);
 		
 		assertEquals("Mauvais nombre de fiches retournées", 5, this.visiteur.getListeFicheFrais().size());
