@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.*;
 
+import controllers.EtatCtrl;
 import controllers.FicheFraisCtrl;
 
 /**
@@ -46,8 +47,10 @@ public class FicheFraisMdl {
 			
 			//-- Transactions
 
-			PreparedStatement statement = connect.prepareStatement("SELECT * FROM FicheFrais "
-					+ "WHERE idVisiteur = ? ");
+			PreparedStatement statement = connect.prepareStatement("SELECT e.id, e.libelle, f.mois, f.dateModif, f.nbJustificatifs, f.montantValide "
+					+ "FROM FicheFrais f, Etat e "
+					+ "WHERE f.idVisiteur = ? "
+					+ "AND f.idEtat = e.id");
 			statement.setString(1, idVisiteur);
 			ResultSet result = statement.executeQuery();
 			
@@ -55,7 +58,8 @@ public class FicheFraisMdl {
 			logTrace.info("Ajout des fiches de frais à la liste");
 			
 			while(result.next()) {
-				FicheFraisCtrl ficheFrais = new FicheFraisCtrl(idVisiteur, result.getString("idEtat"),result.getString("mois"),result.getDate("dateModif"),result.getInt("nbJustificatifs"),result.getDouble("montantValide"));
+				EtatCtrl etat = new EtatCtrl(result.getString(1), result.getString(2));
+				FicheFraisCtrl ficheFrais = new FicheFraisCtrl(idVisiteur, etat, result.getString(3), result.getDate(4), result.getInt(5), result.getDouble(6));
 				listeRetour.add(ficheFrais);
 			}
 			

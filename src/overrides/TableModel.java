@@ -60,7 +60,7 @@ public class TableModel extends AbstractTableModel {
 				result = this.listeFicheFrais.get(row).getMoisFormate();
 				break;
 			case 2 : 
-				result = FicheFraisCtrl.getLibelleIdEtat(this.listeFicheFrais.get(row).getIdEtat());
+				result = this.listeFicheFrais.get(row).getEtat().getLibelle();
 				break;
 			case 3 : 
 				result = this.listeFicheFrais.get(row).getMontantValide() + " €";
