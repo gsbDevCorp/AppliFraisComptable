@@ -82,6 +82,7 @@ public class OverviewFrais extends JPanel implements ActionListener, MouseListen
 		this.categorieLabel.setForeground(new Color(255,255,255));
 		
 		this.choixEtatCombo = new JComboBox<String>();
+		this.choixEtatCombo.addItem("Tous les états");
 		this.choixEtatCombo.addItem("Saisie clôturée");
 		this.choixEtatCombo.addItem("Fiche créée, saisie en cours");
 		this.choixEtatCombo.addItem("Remboursée");
@@ -214,6 +215,7 @@ public class OverviewFrais extends JPanel implements ActionListener, MouseListen
 		if(evt.equals(this.validerChoixBut)) {
 			String etat;
 			switch(this.choixEtatCombo.getSelectedItem().toString()) {
+				case "Tous les états" : etat = "TS"; break;
 				case "Saisie clôturée" : etat = "CL"; break;
 				case "Fiche créée, saisie en cours" : etat = "CR"; break;
 				case "Remboursée" : etat = "RB"; break;

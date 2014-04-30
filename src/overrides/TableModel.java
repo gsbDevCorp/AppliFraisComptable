@@ -78,7 +78,12 @@ public class TableModel extends AbstractTableModel {
 	}
 	
 	/**
-	 * Gestion de la modification de visiteur et/ou d'état de fiche de frais
+	 * Gestion de la modification de visiteur et/ou d'état de fiche de frais<br>
+	 * Deux cas :<br>
+	 * <ul>
+	 * <li>Visiteur précis, tous les états de fiches demandés : La méthode récupère l'ensembles des fiches pour le visiteur précisé sans filtrage par état de fiche de frais.</li>
+	 * <li>Visiteur et etat précis : La méthode récupère l'ensemble des fiches ayant l'état précisé pour le visiteur précisé.</li>
+	 * </ul>
 	 * 
 	 * @param visiteur VisiteurCtrl
 	 * @param etat String
@@ -86,8 +91,14 @@ public class TableModel extends AbstractTableModel {
 	public void setListeFicheFrais(VisiteurCtrl visiteur, String etat) {
 		this.visiteur = visiteur;
 		this.listeFicheFrais.clear();
-		this.visiteur.setListeFicheFrais(this.visiteur.loadFichesFrais());
-		this.listeFicheFrais = this.visiteur.getFichesFraisEtat(etat);
+		if(etat.equalsIgnoreCase("TS")) {
+			this.visiteur.setListeFicheFrais(this.visiteur.loadFichesFrais());
+			this.listeFicheFrais = this.visiteur.getListeFicheFrais();
+		}
+		else {
+			this.visiteur.setListeFicheFrais(this.visiteur.loadFichesFrais());
+			this.listeFicheFrais = this.visiteur.getFichesFraisEtat(etat);
+		}
 	}
 	
 	/**
@@ -114,5 +125,14 @@ public class TableModel extends AbstractTableModel {
 	 */
 	public VisiteurCtrl getVisiteurActif() {
 		return this.visiteur;
+	}
+	
+	/**
+	 * Récupération de la liste de fiches de frais active
+	 * 
+	 * @return ArrayList<FicheFraisCtrl>
+	 */
+	public ArrayList<FicheFraisCtrl> getListeFicheFrais() {
+		return this.listeFicheFrais;
 	}
 }
